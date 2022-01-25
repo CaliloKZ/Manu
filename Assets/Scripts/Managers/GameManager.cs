@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CinemachineConfiner m_mainCamConfiner;
 
+    [SerializeField]
+    private GameObject m_bookshelfMinigameCollider;
+
     public bool canMove { get; private set; }
     public bool canPause { get; private set; }
 
@@ -49,6 +52,13 @@ public class GameManager : MonoBehaviour
     public void ChangeCanMove(bool newCanMove)
     {
         canMove = newCanMove;
+    }
+
+
+    public void KitchenSceneEnded()
+    {
+        canMove = true;
+        m_bookshelfMinigameCollider.SetActive(true);
     }
 
     public void SetPlayerPos(Transform newPos)

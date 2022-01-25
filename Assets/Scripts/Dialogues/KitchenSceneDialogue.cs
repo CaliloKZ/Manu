@@ -48,7 +48,7 @@ public class KitchenSceneDialogue : MonoBehaviour
 
     void TimelineStopped(PlayableDirector obj)
     {
-        GameManager.instance.ChangeCanMove(true);
+        GameManager.instance.KitchenSceneEnded();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
