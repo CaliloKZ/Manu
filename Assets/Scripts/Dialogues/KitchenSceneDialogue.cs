@@ -9,10 +9,16 @@ public class KitchenSceneDialogue : MonoBehaviour
 {
     [TextArea][SerializeField]
     private List<string> m_dialogueLines = new List<string>();
+    [TextArea] [SerializeField]
+    private List<string> m_finishDialogues = new List<string>(); //temp
 
     private DialogueManager m_dialogueManager;
 
     private PlayableDirector m_timeline;
+
+    [SerializeField]
+    private GameObject m_playerCam,
+                       m_sceneCam;
 
     private void Awake()
     {
@@ -48,13 +54,28 @@ public class KitchenSceneDialogue : MonoBehaviour
 
     void TimelineStopped(PlayableDirector obj)
     {
-        GameManager.instance.KitchenSceneEnded();
+        GameManager.instance.KitchenSpySceneEnded();       
+        m_playerCam.SetActive(true);
+        m_sceneCam.SetActive(false);
+        Timing.RunCoroutine(LastDialogues().CancelWith(gameObject)); //temp
+    }
+
+    IEnumerator<float> LastDialogues() //temp
+    {
+        for (int i = 0; i < m_finishDialogues.Count; i++)
+        {
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(m_dialogueManager.Dialogue(m_finishDialogues[i]).CancelWith(gameObject)));
+            yield return Timing.WaitForSeconds(2f);
+        }
+        m_dialogueManager.StopDialogue();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player"))
         {
             m_timeline.Play();
+            m_sceneCam.SetActive(true);
+            m_playerCam.SetActive(false);
             GetComponent<BoxCollider2D>().enabled = false;
         }
     }

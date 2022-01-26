@@ -16,6 +16,7 @@ public class BookshelfColliders : MonoBehaviour
 
     [SerializeField]
     private bool m_isLeft;
+    private bool m_isCharging;
 
     [SerializeField]
     private GameObject m_pressE,
@@ -33,22 +34,31 @@ public class BookshelfColliders : MonoBehaviour
         if(m_isIn && Input.GetKey(KeyCode.E))
         {
             m_bookshelfSlider.SetActive(true);
-            m_charge += m_chargeSpeed * Time.fixedDeltaTime;
-            m_uiManager.UpdateBookshelfSlider(m_isLeft, m_charge);
-            if(m_charge >= m_maximumCharge)
-            {
-                FinishSide();
-            }
+            m_isCharging = true;
         }
         else
         {
             m_bookshelfSlider.SetActive(false);
+            m_isCharging = false;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (m_isCharging)
+        {
+            m_charge += m_chargeSpeed * Time.fixedDeltaTime;
+            m_uiManager.UpdateBookshelfSlider(m_isLeft, m_charge);
+            if (m_charge >= m_maximumCharge)
+            {
+                FinishSide();
+            }
+        }       
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("KeyGamePlayer"))
         {
             m_isIn = true;
             m_pressE.SetActive(true);
@@ -57,7 +67,7 @@ public class BookshelfColliders : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("KeyGamePlayer"))
         {
             m_isIn = false;
             m_pressE.SetActive(false);

@@ -6,115 +6,94 @@ public class KeyGamePlayerController : MonoBehaviour
 {
     private Rigidbody2D m_rb;
     private Animator m_anim;
+    private SpriteRenderer m_sRenderer;
     [SerializeField]
     private GameObject m_body;
-    [SerializeField]
-    private float m_moveSpeed;
     private float m_horizontalMove;
-    private bool m_FacingRight;  // For determining which way the player is currently facing.
-    private Vector3 m_Velocity = Vector3.zero;
-    [Range(0, .3f)]
-    [SerializeField]
-    private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 
     [SerializeField]
-    private Transform m_playerHideLeftPos,
-                      m_playerHideRightPos,
-                      m_playerReturnLeftPos,
-                      m_playerReturnRightPos;
+    private List<Transform> m_playerFixedPositions = new List<Transform>(); //0 = hide left, 1 = left, 2 = right, 3 = hide right.
 
+    private int m_posIndex = 1;
 
-    private bool m_isHidden;
-    private bool m_isLeft;
+    [SerializeField]
+    private float m_moveCooldown;
+    private float m_moveCooldownCount;
+    private bool m_canMove = true;
 
+    public bool isHidden { get; private set; }
 
     private void Awake()
     {
-        m_rb = GetComponent<Rigidbody2D>();
         m_anim = GetComponent<Animator>();
-        m_FacingRight = m_body.transform.localScale.x > 0 ? false : true;
+        m_rb = GetComponent<Rigidbody2D>();
+        m_sRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
-        if (GameManager.instance.canMove)
+        if (GameManager.instance.canMove && m_canMove)
         {
-            m_horizontalMove = Input.GetAxisRaw("Horizontal") * m_moveSpeed;
-            m_anim.SetFloat("Speed", Mathf.Abs(m_horizontalMove));
-        }
+            if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                Move(-1f);           
+            }
+
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                Move(1f);
+            }
+        }       
     }
 
     private void FixedUpdate()
     {
-        Move(m_horizontalMove * Time.fixedDeltaTime);
+        if (!m_canMove)
+        {
+            m_moveCooldownCount += Time.fixedDeltaTime;
+            if(m_moveCooldownCount >= m_moveCooldown)
+            {
+                m_canMove = true;
+                m_moveCooldownCount = 0;
+            }
+        }
     }
 
     void Move(float move)
     {
-        if(m_isHidden)
+        if(move > 0)
         {
-            if (m_isLeft && move > 0)
+            if(m_posIndex < 3)
             {
-                Return();
-            }
-            else if(!m_isLeft && move < 0)
+                m_posIndex++;
+                ChangePosition();
+            }               
+        }
+        else if(move < 0)
+        {
+            if(m_posIndex > 0)
             {
-                Return();
-            }
-            return;
-        }
-        // Move the character by finding the target velocity
-        Vector3 targetVelocity = new Vector2(move * 10f, m_rb.velocity.y);
-        // And then smoothing it out and applying it to the character
-        m_rb.velocity = Vector3.SmoothDamp(m_rb.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+                m_posIndex--;
+                ChangePosition();
+            }            
+        }        
+    }
 
-        // If the input is moving the player right and the player is facing left...
-        if (move > 0 && !m_FacingRight)
+    void ChangePosition()
+    {
+        m_rb.position = m_playerFixedPositions[m_posIndex].position;
+        if(m_posIndex == 0 || m_posIndex == 3)
         {
-            // ... flip the player.
-            Flip();
+            m_anim.SetBool("isHiding", true);
+            isHidden = true;
         }
-        // Otherwise if the input is moving the player left and the player is facing right...
-        else if (move < 0 && m_FacingRight)
+        else if (m_posIndex == 1 || m_posIndex == 2)
         {
-            // ... flip the player.
-            Flip();
+            m_anim.SetBool("isHiding", false);
+            isHidden = false;
         }
-
-
-    }
-
-    void Flip()
-    {
-        // Switch the way the player is labelled as facing.
-        m_FacingRight = !m_FacingRight;
-
-        // Multiply the player's x local scale by -1.
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
-    }
-
-    public void Hide(bool isLeft)
-    {
-        m_isLeft = isLeft;
-        m_isHidden = true;
-        m_anim.SetTrigger("Hide");
-        m_rb.velocity = Vector2.zero;
-        if (m_isLeft)
-            m_rb.position = m_playerHideLeftPos.position;
-        else
-            m_rb.position = m_playerHideRightPos.position;
-    }
-
-    public void Return()
-    {
-        m_isHidden = false;
-        m_anim.SetTrigger("Return");
-        if (m_isLeft)
-            m_rb.position = m_playerReturnLeftPos.position;
-        else
-            m_rb.position = m_playerReturnRightPos.position;
+        m_canMove = false;
     }
 }
+
 

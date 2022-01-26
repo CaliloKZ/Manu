@@ -5,13 +5,26 @@ using UnityEngine;
 
 public class KeyGameManager : MonoBehaviour
 {
+    private GameManager m_gameManager;
     private bool m_leftSideFinished = false,
                  m_rightSideFinished = false;
 
     [SerializeField]
-    private GameObject m_firstFloor,
-                       m_player,
-                       m_playerCam;
+    private GameObject m_player,
+                       m_playerCam,
+                       m_keyGamePlayer;
+
+    private void Start()
+    {
+        m_gameManager = GameManager.instance;
+    }
+
+    public void StartMinigame()
+    {
+        //UIManager.instance.ChangeRoom(1f);
+        m_player.SetActive(false);
+        m_playerCam.SetActive(false);
+    }
 
     public void FinishedLeftSide()
     {
@@ -39,10 +52,8 @@ public class KeyGameManager : MonoBehaviour
 
     public void EndGame()
     {
-        UIManager.instance.ChangeRoom(2f);
-        m_playerCam.SetActive(true);
-        m_player.SetActive(true);
-        m_firstFloor.SetActive(true);
+        //UIManager.instance.ChangeRoom(2f);
+        m_gameManager.BookshelfMinigameEnded();
         Destroy(gameObject);
 
     }

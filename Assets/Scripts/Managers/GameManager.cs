@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,14 +11,20 @@ public class GameManager : MonoBehaviour
     private bool m_minigameManuelaOneDone,
                  m_minigameManuelaTwoDone;
 
+    private bool m_kitchenSpyCutsceneDone,
+                 m_kitchenDialogueCutsceneDone;
+
     [SerializeField]
-    private GameObject m_player;
+    private GameObject m_player,
+                       m_playerCam,
+                       m_mom;
 
     [SerializeField]
     private CinemachineConfiner m_mainCamConfiner;
 
     [SerializeField]
-    private GameObject m_bookshelfMinigameCollider;
+    private GameObject m_bookshelfMinigame,
+                       m_bookshelfNormal;
 
     public bool canMove { get; private set; }
     public bool canPause { get; private set; }
@@ -33,7 +40,6 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Another instance of GameManager was found. Destroying gameObject");
             Destroy(gameObject);
         }
-        Debug.Log("imhere");
     }
 
     private void Update()
@@ -55,10 +61,27 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void KitchenSceneEnded()
+    public void KitchenSpySceneEnded()
     {
         canMove = true;
-        m_bookshelfMinigameCollider.SetActive(true);
+        m_kitchenSpyCutsceneDone = true;
+        m_bookshelfMinigame.SetActive(true);
+        m_bookshelfNormal.SetActive(false);
+    }
+
+    public void BookshelfMinigameEnded()
+    {
+        m_minigameManuelaOneDone = true;
+        m_bookshelfNormal.SetActive(true);
+        Destroy(m_bookshelfMinigame);
+        //m_bookshelfMinigame.SetActive(false);
+        m_player.SetActive(true);
+        m_playerCam.SetActive(true);
+        m_mom.GetComponent<MomController>().enabled = false;
+        var _momAnim = m_mom.GetComponent<Animator>();
+        _momAnim.SetTrigger("Read");
+        _momAnim.enabled = false;
+
     }
 
     public void SetPlayerPos(Transform newPos)
@@ -69,5 +92,10 @@ public class GameManager : MonoBehaviour
     public void SetCameraConfiner(PolygonCollider2D confiner)
     {
         m_mainCamConfiner.m_BoundingShape2D = confiner;
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("ElaHouseScene");
     }
 }

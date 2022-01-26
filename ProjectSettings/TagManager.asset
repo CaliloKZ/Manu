@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - BookshelfMinigameBlock
+  - KeyGamePlayer
   layers:
   - Default
   - TransparentFX
@@ -45,10 +46,10 @@ TagManager:
   - name: Background
     uniqueID: 1195230571
     locked: 0
-  - name: New Layer
+  - name: newLayer
     uniqueID: 1616853153
     locked: 0
-  - name: New Layer
+  - name: NPCs
     uniqueID: 429721893
     locked: 0
   - name: Player

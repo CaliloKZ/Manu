@@ -8,10 +8,10 @@ public class KeyGameBlock : MonoBehaviour
     private bool m_isLeft;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("KeyGamePlayer"))
         {
             var _controller = other.GetComponent<KeyGamePlayerController>();
-            _controller.Hide(m_isLeft);
+            //_controller.Hide(m_isLeft);
         }   
     }
 }
