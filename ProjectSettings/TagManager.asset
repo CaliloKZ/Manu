@@ -46,7 +46,7 @@ TagManager:
   - name: Background
     uniqueID: 1195230571
     locked: 0
-  - name: newLayer
+  - name: JigsawPiece
     uniqueID: 1616853153
     locked: 0
   - name: NPCs

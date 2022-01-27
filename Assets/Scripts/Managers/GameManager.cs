@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    private bool m_minigameManuelaOneDone,
-                 m_minigameManuelaTwoDone;
+    public bool minigameManuelaOneDone { get; private set; }
+    public bool minigameManuelaTwoDone{ get; private set; }
 
-    private bool m_kitchenSpyCutsceneDone,
-                 m_kitchenDialogueCutsceneDone;
+public bool kitchenSpyCutsceneDone { get; private set; }
+    public bool kitchenDialogueCutsceneDone { get; private set; }
 
     [SerializeField]
     private GameObject m_player,
@@ -64,17 +64,16 @@ public class GameManager : MonoBehaviour
     public void KitchenSpySceneEnded()
     {
         canMove = true;
-        m_kitchenSpyCutsceneDone = true;
+        kitchenSpyCutsceneDone = true;
         m_bookshelfMinigame.SetActive(true);
         m_bookshelfNormal.SetActive(false);
     }
 
     public void BookshelfMinigameEnded()
     {
-        m_minigameManuelaOneDone = true;
+        minigameManuelaOneDone = true;
         m_bookshelfNormal.SetActive(true);
         Destroy(m_bookshelfMinigame);
-        //m_bookshelfMinigame.SetActive(false);
         m_player.SetActive(true);
         m_playerCam.SetActive(true);
         m_mom.GetComponent<MomController>().enabled = false;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MEC;
 
 public class Doors : MonoBehaviour
 {
@@ -17,11 +18,33 @@ public class Doors : MonoBehaviour
     [SerializeField]
     private int m_startPosIndex;
 
+    [SerializeField]
+    private bool m_isLocked;
+
+    [TextArea][SerializeField]
+    private string m_doorDialogueText;
+
     private void Update()
     {
         if (m_isIn && Input.GetKeyDown(KeyCode.E))
         {
-            m_roomManager.LoadRoom(m_roomToLoad, m_currentRoom, m_startPosIndex);
+            if (!m_isLocked)
+            {
+                m_roomManager.LoadRoom(m_roomToLoad, m_currentRoom, m_startPosIndex);
+            }
+            else
+            {
+                if (GameManager.instance.minigameManuelaOneDone)
+                {
+                    m_isLocked = false;
+                    //soundManager key sound
+                    m_roomManager.LoadRoom(m_roomToLoad, m_currentRoom, m_startPosIndex);
+                }
+                else
+                {
+                    Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_doorDialogueText, UIManager.instance.GetManuelaColor()));
+                }           
+            }            
         }
     }
 

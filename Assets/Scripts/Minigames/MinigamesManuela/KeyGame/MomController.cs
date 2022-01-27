@@ -7,9 +7,13 @@ public class MomController : MonoBehaviour
 {
     private RandomNumberGenerator m_RNG;
     private byte[] m_bytes = { 0, 0, 0, 100 };
-    private Animator m_anim;
+    private Animator m_anim,
+                     m_exclamationAnim;
     [SerializeField]
     private KeyGamePlayerController m_keyPlayer;
+
+    [SerializeField]
+    private GameObject m_exclamation;
 
     [SerializeField]
     private string m_readTrigger,
@@ -34,11 +38,13 @@ public class MomController : MonoBehaviour
     private float m_changeStateCount;
 
     private bool m_canChangeState;
+    private bool m_shouldChange = true;
 
     private MomStates m_currentState;
     private void Start()
     {
         m_anim = GetComponent<Animator>();
+        m_exclamationAnim = m_exclamation.GetComponent<Animator>();
         m_RNG = RandomNumberGenerator.Create();
         m_currentState = MomStates.Reading;
         m_rToSLOdds = CalculateOdds(m_rToSLOdds);
@@ -51,8 +57,20 @@ public class MomController : MonoBehaviour
         m_SRToLROdds = CalculateOdds(m_SRToLROdds);
     }
 
+    private void Update()
+    {
+        if(m_currentState == MomStates.LookRight && !m_keyPlayer.isHidden)
+        {
+            GameManager.instance.GameOver();
+        }
+    }
     private void FixedUpdate()
     {
+        if (!m_shouldChange)
+        {
+            return;
+        }
+
         if (m_canChangeState)
         {
             ChooseNewState();
@@ -81,6 +99,15 @@ public class MomController : MonoBehaviour
             _newOdds = 255;
         return _newOdds;
     }
+
+    public void PauseResumeChange(bool pause)
+    {
+        m_currentState = MomStates.Reading;
+        m_anim.SetTrigger("Read");
+        m_exclamation.SetActive(false);
+        m_shouldChange = !pause;
+    }
+
 
     void ChooseNewState()
     {
@@ -142,26 +169,27 @@ public class MomController : MonoBehaviour
     void ChangeState(MomStates newState)
     {
         m_currentState = newState;
-        switch (newState)
+        switch (m_currentState)
         {
             case MomStates.Reading:
+                m_exclamation.SetActive(false);
                 m_anim.SetTrigger(m_readTrigger);
                 break;
             case MomStates.SusLeft:
+                m_exclamation.SetActive(false);
                 m_anim.SetTrigger(m_susLeftTrigger);
                 break;
             case MomStates.SusRight:
+                m_exclamation.SetActive(true);
                 m_anim.SetTrigger(m_susRightTrigger);
                 break;
             case MomStates.LookLeft:
+                m_exclamation.SetActive(true);
                 m_anim.SetTrigger(m_lookLeftTrigger);
                 break;
             case MomStates.LookRight:
+                m_exclamationAnim.SetTrigger("Danger");
                 m_anim.SetTrigger(m_lookRightTrigger);
-                if (!m_keyPlayer.isHidden)
-                {
-                    GameManager.instance.GameOver();
-                }
                 break;
         }
         

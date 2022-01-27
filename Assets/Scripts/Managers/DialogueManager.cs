@@ -12,6 +12,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI m_dialogueText;
 
+    [SerializeField]
+    private Material m_dialogueFontMat;
+
     private void Awake()
     {
         if(instance == null)
@@ -25,9 +28,12 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public IEnumerator<float> Dialogue(string text)
+    public IEnumerator<float> Dialogue(string text, Color fontColor)
     {
         Timing.KillCoroutines("textRoutine");
+        m_dialogueFontMat.SetColor("_OutlineColor", fontColor);
+        //m_dialogueText.outlineWidth = 0.2f;
+       // m_dialogueText.outlineColor = fontColor;
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(TextAnim(text, 0.01f).CancelWith(gameObject), "textRoutine"));
     }
 

@@ -16,13 +16,17 @@ public class BookshelfColliders : MonoBehaviour
 
     [SerializeField]
     private bool m_isLeft;
-    private bool m_isCharging;
+    private bool m_isCharging,
+                 m_canCharge = true;
 
     [SerializeField]
     private GameObject m_pressE,
                        m_bookshelfSlider;
 
     private UIManager m_uiManager;
+
+    [SerializeField]
+    private GameObject m_EText;
 
     private void Start()
     {
@@ -31,10 +35,16 @@ public class BookshelfColliders : MonoBehaviour
     }
     private void Update()
     {
+        if (!m_canCharge)
+        {
+            return;
+        }
+
         if(m_isIn && Input.GetKey(KeyCode.E))
         {
             m_bookshelfSlider.SetActive(true);
             m_isCharging = true;
+            m_EText.SetActive(false);
         }
         else
         {
@@ -52,6 +62,8 @@ public class BookshelfColliders : MonoBehaviour
             if (m_charge >= m_maximumCharge)
             {
                 FinishSide();
+                m_canCharge = false;
+                m_isCharging = false;
             }
         }       
     }

@@ -20,6 +20,7 @@ public class KitchenSceneDialogue : MonoBehaviour
     private GameObject m_playerCam,
                        m_sceneCam;
 
+
     private void Awake()
     {
         m_timeline = GetComponent<PlayableDirector>();
@@ -40,7 +41,7 @@ public class KitchenSceneDialogue : MonoBehaviour
     {
         for(int i = 0; i < m_dialogueLines.Count; i++)
         {
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(m_dialogueManager.Dialogue(m_dialogueLines[i]).CancelWith(gameObject)));
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(m_dialogueManager.Dialogue(m_dialogueLines[i], UIManager.instance.GetMomColor()).CancelWith(gameObject)));
             yield return Timing.WaitForSeconds(2f);
         }
         m_dialogueManager.StopDialogue();
@@ -64,7 +65,7 @@ public class KitchenSceneDialogue : MonoBehaviour
     {
         for (int i = 0; i < m_finishDialogues.Count; i++)
         {
-            yield return Timing.WaitUntilDone(Timing.RunCoroutine(m_dialogueManager.Dialogue(m_finishDialogues[i]).CancelWith(gameObject)));
+            yield return Timing.WaitUntilDone(Timing.RunCoroutine(m_dialogueManager.Dialogue(m_finishDialogues[i], UIManager.instance.GetManuelaColor()).CancelWith(gameObject)));
             yield return Timing.WaitForSeconds(2f);
         }
         m_dialogueManager.StopDialogue();

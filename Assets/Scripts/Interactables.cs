@@ -17,7 +17,7 @@ public class Interactables : MonoBehaviour
     {
         if(m_isIn && Input.GetKeyDown(KeyCode.E))
         {
-            Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_itemDialogueText));
+            Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_itemDialogueText, UIManager.instance.GetManuelaColor()));
             
         }
     }
