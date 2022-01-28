@@ -19,7 +19,8 @@ public class Doors : MonoBehaviour
     private int m_startPosIndex;
 
     [SerializeField]
-    private bool m_isLocked;
+    private bool m_isLocked,
+                 m_hasDialogue;
 
     [TextArea][SerializeField]
     private string m_doorDialogueText;
@@ -30,7 +31,8 @@ public class Doors : MonoBehaviour
         {
             if (!m_isLocked)
             {
-                m_roomManager.LoadRoom(m_roomToLoad, m_currentRoom, m_startPosIndex);
+                m_roomManager.LoadRoom(m_roomToLoad, m_currentRoom, m_startPosIndex, m_hasDialogue);
+                m_hasDialogue = false;
             }
             else
             {
@@ -38,7 +40,8 @@ public class Doors : MonoBehaviour
                 {
                     m_isLocked = false;
                     //soundManager key sound
-                    m_roomManager.LoadRoom(m_roomToLoad, m_currentRoom, m_startPosIndex);
+                    m_roomManager.LoadRoom(m_roomToLoad, m_currentRoom, m_startPosIndex, m_hasDialogue);
+                    m_hasDialogue = false;
                 }
                 else
                 {

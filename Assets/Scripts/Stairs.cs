@@ -17,7 +17,7 @@ public class Stairs : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            m_roomManager.LoadRoom(m_roomToLoad, m_currentRoom, m_startPosIndex);
+            m_roomManager.LoadRoom(m_roomToLoad, m_currentRoom, m_startPosIndex, false);
         }
     }
 }

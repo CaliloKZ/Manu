@@ -9,7 +9,7 @@ public class RoomManager : MonoBehaviour
     {
         m_gameManager = GameManager.instance;
     }
-    public void LoadRoom(GameObject roomToLoad, GameObject roomToUnload, int startPos)
+    public void LoadRoom(GameObject roomToLoad, GameObject roomToUnload, int startPos, bool hasDialogue)
     {
         Room _newRoom = roomToLoad.GetComponent<Room>();
         roomToLoad.SetActive(true);
@@ -17,5 +17,9 @@ public class RoomManager : MonoBehaviour
         m_gameManager.SetPlayerPos(_newRoom.GetStartPos(startPos));
         m_gameManager.SetCameraConfiner(_newRoom.GetConfiner());
         roomToUnload.SetActive(false);
+        if (hasDialogue)
+        {
+            _newRoom.StartDialogue();
+        }
     }
 }

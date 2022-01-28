@@ -60,6 +60,12 @@ public class PlayerMovement : MonoBehaviour
        
     }
 
+    public void StopMove()
+    {
+        m_rb.velocity = Vector2.zero;
+        m_anim.SetFloat("Speed", 0);
+        m_horizontalMove = 0;
+    }
     void Flip()
     {
         // Switch the way the player is labelled as facing.

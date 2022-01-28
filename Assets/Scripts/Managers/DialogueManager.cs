@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 using UnityEngine.UI;
 using MEC;
@@ -8,12 +9,21 @@ using MEC;
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
+    private GameManager m_gameManager;
 
     [SerializeField]
     private TextMeshProUGUI m_dialogueText;
 
     [SerializeField]
     private Material m_dialogueFontMat;
+
+    private bool m_isInDialogueState = false;
+
+    private int m_dialogueIndex;
+    private int m_maxDialogues;
+    private List<DialogueText> m_dialogueTexts;
+
+    public UnityEvent dialogueEnded;
 
     private void Awake()
     {
@@ -28,13 +38,58 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {       
+        m_gameManager = GameManager.instance;
+    }
+
+    private void Update()
+    {
+        if (m_isInDialogueState)
+        {
+            m_gameManager.ChangeCanMove(false);
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+            {
+                NextDialogue();
+            }
+        }
+    }
+
+    public void DialogueState(bool enter)
+    {
+        m_dialogueIndex = 0;
+        m_isInDialogueState = enter;
+    }
+
+    void NextDialogue()
+    {
+        m_dialogueIndex++;
+        if(m_dialogueIndex >= m_maxDialogues)
+        {
+            StopDialogue();
+            m_gameManager.ChangeCanMove(true);
+            DialogueState(false);
+            dialogueEnded.Invoke();
+            return;
+        }
+        Timing.RunCoroutine(Dialogue(m_dialogueTexts));
+    }
     public IEnumerator<float> Dialogue(string text, Color fontColor)
     {
+        DialogueState(true);
+        m_maxDialogues = 1;
         Timing.KillCoroutines("textRoutine");
         m_dialogueFontMat.SetColor("_OutlineColor", fontColor);
-        //m_dialogueText.outlineWidth = 0.2f;
-       // m_dialogueText.outlineColor = fontColor;
-        yield return Timing.WaitUntilDone(Timing.RunCoroutine(TextAnim(text, 0.01f).CancelWith(gameObject), "textRoutine"));
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(TextAnim(text, 0.01f).CancelWith(gameObject), "textRoutine"));      
+    }
+
+    public IEnumerator<float> Dialogue(List<DialogueText> dialogueTexts)
+    {
+        m_dialogueTexts = dialogueTexts;
+        m_maxDialogues = m_dialogueTexts.Count;
+        Timing.KillCoroutines("textRoutine");
+        m_dialogueFontMat.SetColor("_OutlineColor", m_dialogueTexts[m_dialogueIndex].fontColor);
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(TextAnim(dialogueTexts[m_dialogueIndex].text, 0.01f).CancelWith(gameObject), "textRoutine"));
     }
 
     public void StopDialogue()

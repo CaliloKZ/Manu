@@ -7,8 +7,7 @@ public class EnterKeyGame : MonoBehaviour
     [SerializeField]
     private KeyGameManager m_keyGameManager;
     [SerializeField]
-    private GameObject m_pressEObj,
-                       m_minigamePanel;
+    private GameObject m_pressEObj;
     private bool m_isIn;
 
 
@@ -16,8 +15,7 @@ public class EnterKeyGame : MonoBehaviour
     {
         if (m_isIn && Input.GetKeyDown(KeyCode.E))
         {
-            m_minigamePanel.SetActive(true);
-            m_keyGameManager.StartMinigame();
+            m_keyGameManager.StartDialogue();
             GetComponent<BoxCollider2D>().enabled = false;
         }
     }
@@ -37,7 +35,6 @@ public class EnterKeyGame : MonoBehaviour
         {
             m_isIn = false;
             m_pressEObj.SetActive(false);
-            DialogueManager.instance.StopDialogue();
         }
     }
 }

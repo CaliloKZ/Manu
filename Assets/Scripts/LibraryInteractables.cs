@@ -7,8 +7,7 @@ public class LibraryInteractables : MonoBehaviour
 {
     [TextArea]
     [SerializeField]
-    private string m_findItemDialogueText, //diálogo que vai ser exibido quando o player achar o item
-                   m_noItemDialogueText; //diálogo que vai ser exibido quando o player já pegou o item
+    private string m_noItemDialogueText; //diálogo que vai ser exibido quando o player já pegou o item
     private bool m_isIn; //pega se o player está dentro do collider
     [SerializeField]
     private GameObject m_pressEObj;
@@ -17,6 +16,12 @@ public class LibraryInteractables : MonoBehaviour
     private List<GameObject> m_objsToGive = new List<GameObject>();
 
     private bool m_gotItem = false;
+    [SerializeField]
+    private bool m_isBookshelf;
+
+    [SerializeField]
+    private Item m_itemToGive,
+                 m_secondItemToGive;
 
 
     private void Update()
@@ -29,8 +34,20 @@ public class LibraryInteractables : MonoBehaviour
             }
             else
             {
-                Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_findItemDialogueText, UIManager.instance.GetManuelaColor()));
-                //show new item
+                if (!m_isBookshelf)
+                {
+                    UIManager.instance.NewItem(m_itemToGive);
+                    GameManager.instance.FoundJigsawItems();
+                    UIManager.instance.NewItem(m_secondItemToGive);
+                    GameManager.instance.FoundJigsawItems();
+                    m_gotItem = true;
+                }
+                else
+                {
+                    UIManager.instance.NewItem(m_itemToGive);
+                    GameManager.instance.FoundJigsawItems();
+                    m_gotItem = true;
+                }
             }
 
         }

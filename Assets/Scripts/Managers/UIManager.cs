@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> m_bookshelfTexts = new List<GameObject>();
 
+    [SerializeField]
+    private GameObject m_newItemPanel;
+
     [Header("Color of the dialogue outline")][SerializeField]
     private Color m_manuelaFontColor;
     [SerializeField]
@@ -120,6 +123,25 @@ public class UIManager : MonoBehaviour
         else
         {
             m_bookshelfMinigameRightSlider.value = value;
+        }
+    }
+
+    public void NewItem(Item item)
+    {
+        GameManager.instance.ChangeCanMove(false);
+        m_newItemPanel.SetActive(true);
+        if(item == null)
+        {
+            return;
+        }
+        if(item.itemName == "PuzzlePiece")
+        {
+            if(!GameManager.instance.foundFirstPuzzlePieces)               
+                 GameManager.instance.FirstPuzzlePiecesFound();
+        }
+        else if(item.itemName == "Photo")
+        {
+
         }
     }
 }
