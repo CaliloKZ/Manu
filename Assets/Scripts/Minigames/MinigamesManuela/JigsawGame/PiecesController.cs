@@ -5,10 +5,15 @@ using UnityEngine.EventSystems;
 
 public class PiecesController : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+    [SerializeField]
     private JigsawGameManager m_jigManager;
     public bool isDragging { get; private set; }
 
     private CanvasGroup m_canvasGroup;
+
+    [SerializeField]
+    private GameObject m_parent;
+
 
     [SerializeField]
     private int m_idPiece;
@@ -20,7 +25,6 @@ public class PiecesController : MonoBehaviour, IPointerDownHandler, IBeginDragHa
     private void Awake()
     {
         m_canvasGroup = GetComponent<CanvasGroup>();
-        m_jigManager = JigsawGameManager.instance;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -28,12 +32,17 @@ public class PiecesController : MonoBehaviour, IPointerDownHandler, IBeginDragHa
         isDragging = true;
         m_canvasGroup.blocksRaycasts = false;
         m_jigManager.SetSelectedPiece(this);
+        transform.SetAsLastSibling();
         Debug.Log("OBD");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = Input.mousePosition;
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.x = Mathf.Clamp(mousePos.x, m_jigManager.GetMaxMousePos0().position.x, m_jigManager.GetMaxMousePos1().position.x);
+        mousePos.y = Mathf.Clamp(mousePos.y, m_jigManager.GetMaxMousePos1().position.y, m_jigManager.GetMaxMousePos0().position.y);
+        transform.position = mousePos;
+
     }
 
     public void OnEndDrag(PointerEventData eventData)

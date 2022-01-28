@@ -5,16 +5,12 @@ using UnityEngine.EventSystems;
 
 public class ReceivePieces : MonoBehaviour, IDropHandler
 {
+    [SerializeField]
     private JigsawGameManager m_jigManager;
     [SerializeField]
     private int m_idPiece;
 
     private PiecesController m_droppedPiece;
-
-    private void Awake()
-    {
-        m_jigManager = JigsawGameManager.instance;
-    }
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -23,6 +19,7 @@ public class ReceivePieces : MonoBehaviour, IDropHandler
         if (m_droppedPiece.GetID() == m_idPiece)
         {
             m_droppedPiece.SetPosition(transform);
+            gameObject.SetActive(false);
         }
     }
 }

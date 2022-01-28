@@ -38,7 +38,7 @@ public class MomController : MonoBehaviour
     private float m_changeStateCount;
 
     private bool m_canChangeState;
-    private bool m_shouldChange = true;
+    private bool m_shouldChange = false;
 
     private MomStates m_currentState;
     private void Start()

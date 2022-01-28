@@ -33,6 +33,7 @@ public class KeyGameManager : MonoBehaviour
     public void StartMinigame()
     {
         UIManager.instance.ActivateBookshelfTexts(true);
+        m_momController.PauseResumeChange(false);
         m_player.SetActive(false);
         m_playerCam.SetActive(false);
     }

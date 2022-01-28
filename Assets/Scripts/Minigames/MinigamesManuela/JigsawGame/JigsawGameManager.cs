@@ -12,11 +12,24 @@ public class JigsawGameManager : MonoBehaviour
     [SerializeField]
     private int m_piecesNumber;
 
+    [SerializeField]
+    private Transform m_maxMousePosMinusXPlusY,
+                      m_maxMousePosPlusXMinusY;
+
+    public Transform GetMaxMousePos0()
+    {
+        return m_maxMousePosPlusXMinusY;
+    }
+    public Transform GetMaxMousePos1()
+    {
+        return m_maxMousePosMinusXPlusY;
+    }
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            Debug.Log("iminstance");
         }
         else
         {
@@ -37,5 +50,10 @@ public class JigsawGameManager : MonoBehaviour
             Debug.Log("endgamejigsaw");
             //endgame
         }
+    }
+
+    public void Test()
+    {
+        Debug.Log("test");
     }
 }
