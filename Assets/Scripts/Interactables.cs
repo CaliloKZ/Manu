@@ -10,13 +10,20 @@ public class Interactables : MonoBehaviour
     private bool m_isIn; //pega se o player está dentro do collider
     [SerializeField]
     private GameObject m_pressEObj;
-    
+    private Color m_fontColor;
 
+    private void Start()
+    {
+        if (GameManager.instance.GetIsManuel())
+            m_fontColor = UIManager.instance.GetManuelColor();
+        else
+            m_fontColor = UIManager.instance.GetManuelaColor();
+    }
     private void Update()
     {
         if(m_isIn && Input.GetKeyDown(KeyCode.E))
         {
-            Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_itemDialogueText, UIManager.instance.GetManuelaColor()));        
+            Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_itemDialogueText, m_fontColor));        
         }
     }
 

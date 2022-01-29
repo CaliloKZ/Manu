@@ -10,6 +10,8 @@ public class KitchenMomDialogue : MonoBehaviour
     private GameManager m_gameManager;
     private BoxCollider2D m_collider;
     [SerializeField]
+    private Doors m_kitchenEntry;
+    [SerializeField]
     private List<DialogueText> m_dialoguePartOne = new List<DialogueText>();
     [SerializeField]
     private List<DialogueText> m_dialoguePartTwo = new List<DialogueText>();
@@ -57,6 +59,7 @@ public class KitchenMomDialogue : MonoBehaviour
 
     void EndPartOne()
     {
+        m_kitchenEntry.ActivateKitchenDialogue();
         m_dialogueManager.dialogueEnded.RemoveListener(m_endDialogue);
         m_gameManager.ChangeCanMove(false);
         m_gameManager.GetPlayerCam().SetActive(true);

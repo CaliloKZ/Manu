@@ -22,6 +22,8 @@ public class KitchenSceneDialogue : MonoBehaviour
 
     private UnityAction m_resumeTimeline;
 
+    private bool m_timelineResumed = false;
+
 
     private void Awake()
     {
@@ -45,12 +47,16 @@ public class KitchenSceneDialogue : MonoBehaviour
         m_dialogueManager.dialogueEnded.AddListener(m_resumeTimeline);
         m_dialogueManager.DialogueState(true);
         Timing.RunCoroutine(m_dialogueManager.Dialogue(m_dialogueLines).CancelWith(gameObject));
-        yield return Timing.WaitForSeconds(2f);
-        m_timeline.playableGraph.GetRootPlayable(0).SetSpeed(0);
+        yield return Timing.WaitForSeconds(1f);
+        if(!m_timelineResumed)
+        {
+            m_timeline.playableGraph.GetRootPlayable(0).SetSpeed(0);
+        }    
     }
 
     void ResumeTimeline()
     {
+        m_timelineResumed = true;
         m_gameManager.ChangeCanMove(false);
         m_timeline.playableGraph.GetRootPlayable(0).SetSpeed(1);
         m_dialogueManager.dialogueEnded.RemoveListener(m_resumeTimeline);

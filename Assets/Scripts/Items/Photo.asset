@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Photo
   m_EditorClassIdentifier: 
   itemName: Photo
-  itemSprite: {fileID: 0}
+  displayName: Foto desconhecida
+  itemSprite: {fileID: 21300000, guid: 1da760d4f61eeac438a47b325b8fdd14, type: 3}

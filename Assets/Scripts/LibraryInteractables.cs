@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using MEC;
 
 public class LibraryInteractables : MonoBehaviour
 {
+    private GameManager m_gameManager;
     [TextArea]
     [SerializeField]
     private string m_noItemDialogueText; //diálogo que vai ser exibido quando o player já pegou o item
@@ -12,8 +14,9 @@ public class LibraryInteractables : MonoBehaviour
     [SerializeField]
     private GameObject m_pressEObj;
     private PlayerMovement m_player;
-
-    private List<GameObject> m_objsToGive = new List<GameObject>();
+    private SpriteRenderer m_sr;
+    [SerializeField]
+    private List<Sprite> m_openSprites = new List<Sprite>();
 
     private bool m_gotItem = false;
     [SerializeField]
@@ -23,7 +26,19 @@ public class LibraryInteractables : MonoBehaviour
     private Item m_itemToGive,
                  m_secondItemToGive;
 
+    private UnityAction m_gotNewItem;
 
+    private bool m_gotFirstItem = false;
+
+    private void Awake()
+    {
+        m_sr = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        m_gameManager = GameManager.instance;
+    }
     private void Update()
     {
         if (m_isIn && Input.GetKeyDown(KeyCode.E))
@@ -36,16 +51,15 @@ public class LibraryInteractables : MonoBehaviour
             {
                 if (!m_isBookshelf)
                 {
+                    m_gotNewItem += GetSecondItem;
+                    m_gameManager.gotJigsaw.AddListener(m_gotNewItem);
                     UIManager.instance.NewItem(m_itemToGive);
-                    GameManager.instance.FoundJigsawItems();
-                    UIManager.instance.NewItem(m_secondItemToGive);
-                    GameManager.instance.FoundJigsawItems();
-                    m_gotItem = true;
+                    m_sr.sprite = m_openSprites[0];
+                    m_gotFirstItem = true;
                 }
                 else
                 {
-                    UIManager.instance.NewItem(m_itemToGive);
-                    GameManager.instance.FoundJigsawItems();
+                    UIManager.instance.NewItem(m_itemToGive);                   
                     m_gotItem = true;
                 }
             }
@@ -69,8 +83,19 @@ public class LibraryInteractables : MonoBehaviour
         {
             m_isIn = false;
             m_pressEObj.SetActive(false);
-            DialogueManager.instance.StopDialogue();
         }
+    }
+
+    public void GetSecondItem()
+    {
+        if(m_gotFirstItem && !m_gotItem)
+        {
+            m_gameManager.gotJigsaw.RemoveListener(m_gotNewItem);
+            UIManager.instance.NewItem(m_itemToGive);
+            m_sr.sprite = m_openSprites[1];
+            m_gotItem = true;
+        }
+      
     }
 }
 

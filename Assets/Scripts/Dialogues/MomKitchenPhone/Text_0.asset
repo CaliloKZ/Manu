@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dece28a61a313b4fa0cf557da2df6a1, type: 3}
   m_Name: Text_0
   m_EditorClassIdentifier: 
-  text: "Essa menina continua se vestindo que nem moleque, n\xE3o importa o que eu
+  text: "A Manuela continua se vestindo que nem moleque, n\xE3o importa o que eu
     fale ela continua nessas palha\xE7adas dela"
   fontColor: {r: 0.30980393, g: 0.20000002, b: 0.32156864, a: 0}

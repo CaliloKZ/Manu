@@ -25,6 +25,16 @@ public class Doors : MonoBehaviour
     [TextArea][SerializeField]
     private string m_doorDialogueText;
 
+    private Color m_fontColor;
+
+    private void Start()
+    {
+        if (GameManager.instance.GetIsManuel())
+            m_fontColor = UIManager.instance.GetManuelColor();
+        else
+            m_fontColor = UIManager.instance.GetManuelaColor();
+    }
+
     private void Update()
     {
         if (m_isIn && Input.GetKeyDown(KeyCode.E))
@@ -36,7 +46,7 @@ public class Doors : MonoBehaviour
             }
             else
             {
-                if (GameManager.instance.minigameManuelaOneDone)
+                if (GameManager.instance.hasLibraryKey)
                 {
                     m_isLocked = false;
                     //soundManager key sound
@@ -45,7 +55,8 @@ public class Doors : MonoBehaviour
                 }
                 else
                 {
-                    Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_doorDialogueText, UIManager.instance.GetManuelaColor()));
+                    Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_doorDialogueText, m_fontColor));
+                    GameManager.instance.FoundLockedLibrary();
                 }           
             }            
         }
@@ -67,5 +78,10 @@ public class Doors : MonoBehaviour
             m_isIn = false;
             m_pressEObj.SetActive(false);
         }
+    }
+
+    public void ActivateKitchenDialogue()
+    {
+        m_hasDialogue = true;
     }
 }

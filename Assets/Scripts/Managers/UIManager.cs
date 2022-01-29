@@ -18,7 +18,8 @@ public class UIManager : MonoBehaviour
     private List<GameObject> m_bookshelfTexts = new List<GameObject>();
 
     [SerializeField]
-    private GameObject m_newItemPanel;
+    private GameObject m_newItemPanel,
+                       m_documentPanel;
 
     [Header("Color of the dialogue outline")][SerializeField]
     private Color m_manuelaFontColor;
@@ -65,6 +66,7 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("Another instance of UIManager was found. Destroying gameObject");
             Destroy(gameObject);
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
@@ -75,6 +77,17 @@ public class UIManager : MonoBehaviour
     public void ChangeRoom(float seconds)
     {
         Timing.RunCoroutine(FadeImage(seconds).CancelWith(gameObject));
+    }
+    public IEnumerator<float> FadeInWithDelay(float seconds, float delay)
+    {
+        yield return Timing.WaitForSeconds(delay);
+        Timing.RunCoroutine(FadeToImage(seconds).CancelWith(gameObject));
+    }
+
+    public IEnumerator<float> FadeInOut(float seconds)
+    {
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(FadeToImage(seconds).CancelWith(gameObject)));
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(FadeImage(seconds).CancelWith(gameObject)));
     }
 
     public void ActivateBookshelfTexts(bool activate)
@@ -95,7 +108,16 @@ public class UIManager : MonoBehaviour
         }
         
     }
-
+    IEnumerator<float> FadeToImage(float seconds)
+    {
+        img.color = new Color(0, 0, 0, 1);
+        for (float i = 0; i <= seconds; i += Time.deltaTime)
+        {
+            // set color with i as alpha
+            img.color = new Color(0, 0, 0, i);
+            yield return Timing.WaitForOneFrame;
+        }
+    }
 
     IEnumerator<float> FadeImage(float seconds)
     {
@@ -130,18 +152,12 @@ public class UIManager : MonoBehaviour
     {
         GameManager.instance.ChangeCanMove(false);
         m_newItemPanel.SetActive(true);
-        if(item == null)
-        {
-            return;
-        }
-        if(item.itemName == "PuzzlePiece")
-        {
-            if(!GameManager.instance.foundFirstPuzzlePieces)               
-                 GameManager.instance.FirstPuzzlePiecesFound();
-        }
-        else if(item.itemName == "Photo")
-        {
+        m_newItemPanel.GetComponent<NewItemPanel>().NewItem(item);     
+    }
 
-        }
+    public void ActivateDocumentPanel()
+    {
+        GameManager.instance.ChangeCanMove(false);
+        m_documentPanel.SetActive(true);
     }
 }

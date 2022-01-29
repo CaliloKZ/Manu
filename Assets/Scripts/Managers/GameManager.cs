@@ -3,16 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 using MEC;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public bool minigameManuelaOneDone { get; private set; }
-    public bool minigameManuelaTwoDone{ get; private set; }
+    private DialogueManager m_dialogueManager;
+
+    public bool hasLibraryKey { get; private set; }
 
     public bool foundFirstPuzzlePieces { get; private set; } = false;
+
+    [SerializeField]
+    private bool m_isManuel;
+
+    public bool GetIsManuel()
+    {
+        return m_isManuel;
+    }
 
     [SerializeField]
     private GameObject m_bedroom;
@@ -29,15 +39,48 @@ public class GameManager : MonoBehaviour
                        m_bookshelfNormal;
     [SerializeField]
     private List<DialogueText> m_firstPuzzlePieceDialogue = new List<DialogueText>();
+    [TextArea][SerializeField]
+    private string m_foundPhotoDialogue;
+    [TextArea][SerializeField]
+    private string m_finishedPuzzleDialogue;
+    [TextArea][SerializeField]
+    private string m_gotOldKeyDialogue;
+    [TextArea][SerializeField]
+    private string m_gotOldKeyDialogueAfterLibrary;
 
     [SerializeField]
-    private int m_jigsawItems;
+    private List<DialogueText> m_startPuzzleDialogue = new List<DialogueText>();
+
+    private LibraryInteractables m_obj;
+
+    public int jigsawItems { get; private set; }
 
     [SerializeField]
     private GameObject m_jigsawGameCanvas;
 
+    [SerializeField]
+    private InventoryManager m_inventory;
+
     public bool canMove { get; private set; }
     public bool canPause { get; private set; }
+    public UnityEvent gotJigsaw { get; private set; }
+
+    private bool m_foundLibrary = false;
+
+    private UnityAction m_jigsawDialogueEnded;
+    private UnityAction m_photoDialogueEnded;
+    private UnityAction m_PuzzleDialogueEnded;
+
+    [SerializeField]
+    private Transform m_finalManuelaPos;
+
+    [SerializeField]
+    private GameObject m_firstRoomToLoad;
+
+    public Transform GetFinalManuelaPos()
+    {
+        return m_finalManuelaPos;
+    }
 
     public GameObject GetPlayer()
     {
@@ -64,7 +107,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        m_bedroom.SetActive(true);
+        gotJigsaw = new UnityEvent();
+        m_dialogueManager = DialogueManager.instance;
+        m_firstRoomToLoad.SetActive(true);
         canMove = true;
     }
 
@@ -97,7 +142,7 @@ public class GameManager : MonoBehaviour
 
     public void BookshelfMinigameEnded()
     {
-        minigameManuelaOneDone = true;
+        hasLibraryKey = true;
         m_bookshelfNormal.SetActive(true);
         Destroy(m_bookshelfMinigame);
         m_player.SetActive(true);
@@ -126,17 +171,96 @@ public class GameManager : MonoBehaviour
 
     public void FirstPuzzlePiecesFound()
     {
+        m_jigsawDialogueEnded += SecondJigsaw;
         foundFirstPuzzlePieces = true;
-        DialogueManager.instance.DialogueState(true);
+        m_dialogueManager.dialogueEnded.AddListener(m_jigsawDialogueEnded);
+        m_dialogueManager.DialogueState(true);
         Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_firstPuzzlePieceDialogue));
     }
 
-    public void FoundJigsawItems()
+    void SecondJigsaw()
     {
-        m_jigsawItems++;
-        if (m_jigsawItems >= 7)
+        m_dialogueManager.dialogueEnded.RemoveListener(m_jigsawDialogueEnded);
+        FoundJigsawItem();
+    }
+
+    public void FoundJigsawItem()
+    {
+
+        jigsawItems++;
+        if (jigsawItems >= 7)
         {
-            m_jigsawGameCanvas.SetActive(true);
+            StartPuzzleDialogue();
         }
+        ChangeCanMove(true);
+        Timing.RunCoroutine(JigsawInvokeDelay().CancelWith(gameObject));
+    }
+
+    IEnumerator<float> JigsawInvokeDelay()
+    {
+        yield return Timing.WaitForSeconds(0.2f);
+        gotJigsaw.Invoke();
+    }
+
+    public void GotPhoto()
+    {
+        m_photoDialogueEnded += EndPhotoDialogue;
+        m_dialogueManager.dialogueEnded.AddListener(m_photoDialogueEnded);
+        Timing.RunCoroutine(m_dialogueManager.Dialogue(m_foundPhotoDialogue, UIManager.instance.GetManuelaColor()).CancelWith(gameObject));
+    }
+
+    void EndPhotoDialogue()
+    {
+        FoundJigsawItem();
+        m_dialogueManager.dialogueEnded.RemoveListener(m_photoDialogueEnded);
+    }
+
+    void StartPuzzleDialogue()
+    {
+        m_PuzzleDialogueEnded += StartPuzzle;
+        m_dialogueManager.dialogueEnded.AddListener(m_PuzzleDialogueEnded);
+        m_dialogueManager.DialogueState(true);
+        Timing.RunCoroutine(m_dialogueManager.Dialogue(m_startPuzzleDialogue).CancelWith(gameObject));
+    }
+
+    void StartPuzzle()
+    {
+        m_dialogueManager.dialogueEnded.RemoveListener(m_PuzzleDialogueEnded);
+        m_jigsawGameCanvas.SetActive(true);
+        m_player.GetComponent<PlayerMovement>().MovePlayerToPos();
+    }
+
+    public void EndPuzzle()
+    {
+        m_PuzzleDialogueEnded -= StartPuzzle;
+        m_PuzzleDialogueEnded += EndManuelaScene;
+        m_dialogueManager.dialogueEnded.AddListener(m_PuzzleDialogueEnded);
+        Timing.RunCoroutine(m_dialogueManager.Dialogue(m_finishedPuzzleDialogue, UIManager.instance.GetManuelaColor()));
+    }
+
+    public void EndManuelaScene()
+    {
+        m_dialogueManager.dialogueEnded.RemoveListener(m_PuzzleDialogueEnded);
+        m_player.GetComponent<Animator>().SetTrigger("Cry");
+        Timing.RunCoroutine(UIManager.instance.FadeInWithDelay(3f, 7.5f).CancelWith(gameObject));
+    }
+
+    public void FoundLockedLibrary()
+    {
+        m_foundLibrary = true;
+    }
+
+    public void GotOldKey()
+    {
+        hasLibraryKey = true;
+        if (m_foundLibrary)
+            Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_gotOldKeyDialogueAfterLibrary, UIManager.instance.GetManuelColor()).CancelWith(gameObject));
+        else
+            Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_gotOldKeyDialogue, UIManager.instance.GetManuelColor()).CancelWith(gameObject));
+    }
+
+    public void GoToCredits()
+    {
+        SceneManager.LoadScene("Credits");
     }
 }

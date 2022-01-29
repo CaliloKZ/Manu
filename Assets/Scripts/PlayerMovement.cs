@@ -77,5 +77,11 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = theScale;
     }
 
+    public void MovePlayerToPos()
+    {
+        GameManager.instance.ChangeCanMove(false);
+        StopMove();
+        m_rb.position = GameManager.instance.GetFinalManuelaPos().position;
+    }
 }
 

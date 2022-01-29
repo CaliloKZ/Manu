@@ -25,6 +25,9 @@ public class DialogueManager : MonoBehaviour
 
     public UnityEvent dialogueEnded;
 
+    [SerializeField]
+    private GameObject m_nextIcon;
+
     private void Awake()
     {
         if(instance == null)
@@ -76,11 +79,13 @@ public class DialogueManager : MonoBehaviour
     }
     public IEnumerator<float> Dialogue(string text, Color fontColor)
     {
+        m_nextIcon.SetActive(false);
         DialogueState(true);
         m_maxDialogues = 1;
         Timing.KillCoroutines("textRoutine");
         m_dialogueFontMat.SetColor("_OutlineColor", fontColor);
-        yield return Timing.WaitUntilDone(Timing.RunCoroutine(TextAnim(text, 0.01f).CancelWith(gameObject), "textRoutine"));      
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(TextAnim(text, 0.01f).CancelWith(gameObject), "textRoutine"));
+        m_nextIcon.SetActive(true);
     }
 
     public IEnumerator<float> Dialogue(List<DialogueText> dialogueTexts)
@@ -94,6 +99,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StopDialogue()
     {
+        m_nextIcon.SetActive(false);
         Timing.KillCoroutines("textRoutine");
         m_dialogueText.text = "";
     }

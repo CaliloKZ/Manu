@@ -13,8 +13,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - ManuelaEndScene
   - 
   - 
   - 
@@ -54,4 +54,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3053987569
+    locked: 0
+  - name: Front
+    uniqueID: 4004396235
     locked: 0

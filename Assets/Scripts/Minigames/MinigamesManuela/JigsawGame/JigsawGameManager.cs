@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MEC;
 
 public class JigsawGameManager : MonoBehaviour
 {
@@ -8,13 +9,14 @@ public class JigsawGameManager : MonoBehaviour
 
     public PiecesController pieceSelected { get; private set; }
 
-    private int m_piecesSetted = 0;
+    public int m_piecesSetted = 0;
     [SerializeField]
     private int m_piecesNumber;
 
     [SerializeField]
     private Transform m_maxMousePosMinusXPlusY,
                       m_maxMousePosPlusXMinusY;
+
 
     public Transform GetMaxMousePos0()
     {
@@ -48,12 +50,18 @@ public class JigsawGameManager : MonoBehaviour
         if (m_piecesSetted == m_piecesNumber)
         {
             Debug.Log("endgamejigsaw");
-            //endgame
+            Timing.RunCoroutine(EndJigsawGame().CancelWith(gameObject));
+            
+            //gameObject.SetActive(false);
         }
     }
 
-    public void Test()
+    IEnumerator<float> EndJigsawGame()
     {
-        Debug.Log("test");
+        GetComponent<Canvas>().enabled = false;
+        UIManager.instance.ChangeRoom(1f);
+        yield return Timing.WaitForSeconds(1f);
+        GameManager.instance.EndPuzzle();
+        gameObject.SetActive(false);
     }
 }

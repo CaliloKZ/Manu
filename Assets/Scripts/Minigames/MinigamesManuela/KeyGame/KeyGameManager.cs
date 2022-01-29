@@ -33,6 +33,9 @@ public class KeyGameManager : MonoBehaviour
     [SerializeField]
     private MomController m_momController;
 
+    [SerializeField]
+    private Item m_key;
+
     private void Start()
     {
         m_endFirstDialogue += StartMinigame;
@@ -103,6 +106,7 @@ public class KeyGameManager : MonoBehaviour
     }
     void End()
     {
+        UIManager.instance.NewItem(m_key);
         m_gameManager.BookshelfMinigameEnded();
     }
 
