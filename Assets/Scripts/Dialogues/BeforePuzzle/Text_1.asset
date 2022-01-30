@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dece28a61a313b4fa0cf557da2df6a1, type: 3}
   m_Name: Text_1
   m_EditorClassIdentifier: 
-  text: Devo consiguir montar alguma coisa disso, bora ver se tem alguma coisa interessante
+  text: Devo conseguir montar alguma coisa disso, bora ver se tem alguma coisa interessante
     nesse papel
   fontColor: {r: 0, g: 0.69803923, b: 0.050980393, a: 1}
   voices:

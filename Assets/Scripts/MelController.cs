@@ -35,6 +35,7 @@ public class MelController : MonoBehaviour
     [SerializeField]
     private Transform m_playerPettingPosition;
     private Vector3 m_playerLastPos;
+    private Vector3 m_playerLastScale;
 
     private bool m_canMove = true;
 
@@ -116,6 +117,8 @@ public class MelController : MonoBehaviour
         m_playerScript.PetTheDog();
         m_anim.SetBool("isPetting", true);     
         m_playerLastPos = m_player.transform.position;
+        m_playerLastScale = m_playerScript.GetScale();
+        m_player.transform.localScale = Vector3.one;
         m_player.transform.position = m_playerPettingPosition.position;
         yield return Timing.WaitForSeconds(0.5f);
         m_petting = true;
@@ -127,6 +130,7 @@ public class MelController : MonoBehaviour
         m_playerScript.StopPetting();
         m_anim.SetBool("isPetting", false);
         m_player.transform.position = m_playerLastPos;
+        m_player.transform.localScale = m_playerLastScale;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

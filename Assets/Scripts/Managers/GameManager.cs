@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
     {
         if(canPause && Input.GetKeyDown(KeyCode.Escape))
         {
-            m_pause.PauseGame();
+            PauseGame();
         }
     }
 
@@ -162,6 +162,18 @@ public class GameManager : MonoBehaviour
         m_bookshelfNormal.SetActive(false);
     }
 
+    public void PauseGame()
+    {
+        m_pause.PauseGame();
+        canPause = false;
+    }
+
+    public void UnpauseGame()
+    {
+        canPause = true;
+    }
+
+
     public void KitchenSpySceneEnded()
     {
         ChangeCanMove(true);
@@ -173,6 +185,7 @@ public class GameManager : MonoBehaviour
         m_bookshelfNormal.SetActive(true);
         Destroy(m_bookshelfMinigame);
         m_player.SetActive(true);
+        m_player.GetComponent<Animator>().SetTrigger("ChangeToManuela");
         m_playerCam.SetActive(true);
         m_momCouch.GetComponent<MomController>().enabled = false;
         var _momAnim = m_momCouch.GetComponent<Animator>();

@@ -14,8 +14,6 @@ public class AlleyNPC : MonoBehaviour
 
     [SerializeField]
     private List<DialogueText> m_firstPartDialogue = new List<DialogueText>();
-    [SerializeField]
-    private List<DialogueText> m_secondPartDialogue = new List<DialogueText>();
 
     [SerializeField]
     private GameObject m_roomToLoad,
@@ -47,7 +45,7 @@ public class AlleyNPC : MonoBehaviour
 
     void StartDialogue()
     {
-        m_endDialogue += SecondPart;
+        m_endDialogue += GoToHouse;
         m_dialogueManager.dialogueEnded.AddListener(m_endDialogue);
         m_dialogueManager.DialogueState(true);
         Timing.RunCoroutine(m_dialogueManager.Dialogue(m_firstPartDialogue).CancelWith(gameObject));
@@ -69,18 +67,6 @@ public class AlleyNPC : MonoBehaviour
             m_isIn = false;
             m_pressEObj.SetActive(false);
         }
-    }
-
-    void SecondPart()
-    {
-        m_dialogueManager.dialogueEnded.RemoveListener(m_endDialogue);
-        GameManager.instance.ChangeCanMove(false);
-        m_anim.SetTrigger("ShowMoney");
-        m_endDialogue -= SecondPart;
-        m_endDialogue += GoToHouse;
-        m_dialogueManager.dialogueEnded.AddListener(m_endDialogue);
-        m_dialogueManager.DialogueState(true);
-        Timing.RunCoroutine(m_dialogueManager.Dialogue(m_firstPartDialogue).CancelWith(gameObject));
     }
 
     void GoToHouse()

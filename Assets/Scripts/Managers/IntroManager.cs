@@ -13,7 +13,20 @@ public class IntroManager : MonoBehaviour
     private void Start()
     {
         SoundManager.instance.PlayMusic("MenuPrincipal");
-        m_continueBT.interactable = !string.IsNullOrWhiteSpace(PlayerPrefs.GetString("LastScene"));
+        if (string.IsNullOrWhiteSpace(PlayerPrefs.GetString("LastScene")))
+        {
+            m_continueBT.interactable = false;
+        }
+        else if(PlayerPrefs.GetString("LastScene") == "ElaHouseScene" || PlayerPrefs.GetString("LastScene") == "Credits")
+        {
+            m_continueBT.interactable = false;
+        }
+        else
+        {
+            m_continueBT.interactable = true; 
+        }
+
+
     }
 
     public void PlayBT()
@@ -30,6 +43,12 @@ public class IntroManager : MonoBehaviour
     public void OptionsBT()
     {
 
+    }
+
+    public void ShowCredits()
+    {
+        SceneManager.LoadScene("Credits");
+        SoundManager.instance.PlayMusic("FinalCutscene");
     }
 
 }

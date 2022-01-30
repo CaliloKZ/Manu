@@ -352,8 +352,8 @@ MonoBehaviour:
   m_playerStartPos:
   - {fileID: 740650448}
   m_dialogueTexts:
-  - {fileID: 11400000, guid: feae910f800841145a1ab560934eb482, type: 2}
-  - {fileID: 11400000, guid: 5a157982b10b5ef4fae0d4e5ee0300ec, type: 2}
+  - {fileID: 11400000, guid: 288d09ef110d2c74f98ee0858617cc08, type: 2}
+  - {fileID: 11400000, guid: c90a99afe07d4dc46a9778c7235b66f5, type: 2}
   m_isFirstFloor: 0
   m_isStreet: 0
   m_streetNPCs: []
@@ -12339,7 +12339,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4457796005351097817}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1720598947}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: PauseGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &4457796005351097823
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13438,11 +13450,26 @@ MonoBehaviour:
   m_momFontColor: {r: 0.30980393, g: 0.20000002, b: 0.32156864, a: 1}
   m_vendorFontColor: {r: 0, g: 0, b: 0, a: 0}
   m_alleyManFontColor: {r: 0, g: 0, b: 0, a: 0}
-  m_manuelaVoices: []
-  m_manuelVoices: []
-  m_momVoices: []
-  m_breadVoices: []
-  m_alleyVoices: []
+  m_manuelaVoices:
+  - Manuela0
+  - Manuela1
+  - Manuela2
+  m_manuelVoices:
+  - Manuel0
+  - Manuel1
+  - Manuel2
+  m_momVoices:
+  - Mom0
+  - Mom1
+  - Mom2
+  m_breadVoices:
+  - Bread0
+  - Bread1
+  - Bread2
+  m_alleyVoices:
+  - Alley0
+  - Alley1
+  - Alley2
 --- !u!114 &4457796006000131960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13942,7 +13969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4457796006395802436
 MonoBehaviour:
   m_ObjectHideFlags: 0

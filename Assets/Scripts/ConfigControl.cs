@@ -103,6 +103,7 @@ public class ConfigControl : MonoBehaviour
         if (GameManager.instance != null)
         {
             GameManager.instance.ChangeCanMove(true);
+            GameManager.instance.UnpauseGame();
         }
        // Time.timeScale = 1;
     }

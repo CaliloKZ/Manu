@@ -56,11 +56,13 @@ public class LibraryInteractables : MonoBehaviour
                     m_gotNewItem += GetSecondItem;
                     m_gameManager.gotJigsaw.AddListener(m_gotNewItem);
                     UIManager.instance.NewItem(m_itemToGive);
+                    SoundManager.instance.PlaySFX("OpenDrawer");
                     m_sr.sprite = m_openSprites[0];
                     m_gotFirstItem = true;
                 }
                 else
                 {
+                    SoundManager.instance.PlaySFX("SearchBooks");
                     UIManager.instance.NewItem(m_itemToGive);                   
                     m_gotItem = true;
                 }
@@ -92,6 +94,7 @@ public class LibraryInteractables : MonoBehaviour
     {
         if(m_gotFirstItem && !m_gotItem)
         {
+            SoundManager.instance.PlaySFX("OpenDrawer");
             m_gameManager.gotJigsaw.RemoveListener(m_gotNewItem);
             UIManager.instance.NewItem(m_itemToGive);
             m_sr.sprite = m_openSprites[1];

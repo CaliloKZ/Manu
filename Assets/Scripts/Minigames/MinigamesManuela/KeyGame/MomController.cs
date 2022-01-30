@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using MEC;
+using UnityEngine.Events;
 
 public class MomController : MonoBehaviour
 {
@@ -41,6 +43,11 @@ public class MomController : MonoBehaviour
     private bool m_shouldChange = false;
 
     private MomStates m_currentState;
+
+    [SerializeField][TextArea]
+    private string m_gameOverDialogue;
+
+    private UnityAction m_endDialogue;
     private void Start()
     {
         m_anim = GetComponent<Animator>();
@@ -61,7 +68,9 @@ public class MomController : MonoBehaviour
     {
         if(m_currentState == MomStates.LookRight && !m_keyPlayer.isHidden)
         {
-            GameManager.instance.GameOver();
+            GameOverDialogue();
+            m_currentState = MomStates.Reading;
+            PauseResumeChange(true);
         }
     }
     private void FixedUpdate()
@@ -86,6 +95,17 @@ public class MomController : MonoBehaviour
         }
     }
 
+    void GameOverDialogue()
+    {
+        m_endDialogue += GameOver;
+        DialogueManager.instance.dialogueEnded.AddListener(m_endDialogue);
+        Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_gameOverDialogue, UIManager.instance.GetColor(2), UIManager.instance.GetVoice(2)[0], UIManager.instance.GetVoice(2)[1], UIManager.instance.GetVoice(2)[2]));
+    }
+
+    void GameOver()
+    {
+        GameManager.instance.GameOver();
+    }
     int RandomNumber()
     {
         m_RNG.GetBytes(m_bytes, 3, 1);

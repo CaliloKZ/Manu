@@ -255,11 +255,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Elenco\n\n\n\nManuela\nAna Let\xEDcia\n\n\nManuel\nAna Let\xEDcia\n\n\nM\xE3e:\nAna
-    Let\xEDcia\n\n\nVendedor:\nCalilo Kizan\n\n\nPessoa misteriosa\nAna Let\xEDcia\n\n\n\n\nArte\nAna
-    Let\xEDcia\n\n\n\nAnima\xE7\xF5es\nAna Let\xEDcia\nCalilo Kizan\n\n\n\nM\xFAsica\n\n\n\nPrograma\xE7\xE3o\nCalilo
-    Kizan\n\n\n\nEnredo\nAna Let\xEDcia\nCalilo Kizan\nRobin Aguiar\n\n\n\n\n\nObrigade
-    por jogar!\n:3"
+  m_text: "Elenco\n\n\n\nManuela\nAna Let\xEDcia\n\n\nManuel\nAna Let\xEDcia\n\n\nM\xE3e\nAna
+    Let\xEDcia\n\n\nVendedor\nCalilo Kizan\n\n\nPessoa misteriosa\nAna Let\xEDcia\n\n\n\n\nArte\nAna
+    Let\xEDcia\n\n\n\nAnima\xE7\xF5es\nAna Let\xEDcia\nCalilo Kizan\n\n\n\nM\xFAsica\nfreesound.org:\n\nMigfus20
+    - cena final\n\nsamplingsamthemarylandman - menu principal\n\nSetuniman - m\xFAsica
+    da casa do manuel\n\nFoolBoyMedia - m\xFAsica fase da rua\n\nnox-sound  - abrir
+    gaveta\n\njammaj  - mexendo nos livro\n\namholma  - abrir porta\n\neminyildirim 
+    - abrir porta na casa velha\n\n\nPrograma\xE7\xE3o\nCalilo Kizan\n\n\n\nEnredo\nAna
+    Let\xEDcia\nCalilo Kizan\nRobin Aguiar\n\n\n\n\n\nObrigade por jogar!\n:3"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 454a18f5de47c6e43b1678877a212540, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 456210da6b038d44389fd63059f7e490, type: 2}
@@ -405,6 +408,7 @@ GameObject:
   - component: {fileID: 274785907}
   - component: {fileID: 274785906}
   - component: {fileID: 274785905}
+  - component: {fileID: 274785909}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -493,6 +497,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &274785909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274785904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 779dbd9ad4d16e943bfe72abe3ed5398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &367914507
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,6 +587,7 @@ GameObject:
   - component: {fileID: 771026980}
   - component: {fileID: 771026979}
   - component: {fileID: 771026981}
+  - component: {fileID: 771026982}
   m_Layer: 5
   m_Name: CreditsPanel
   m_TagString: Untagged
@@ -658,6 +675,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &771026982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771026977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 779dbd9ad4d16e943bfe72abe3ed5398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1108018648
 GameObject:
   m_ObjectHideFlags: 0

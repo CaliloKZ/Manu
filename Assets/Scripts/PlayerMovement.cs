@@ -16,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
     [Range(0, .3f)] [SerializeField]
     private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 
+    public Vector3 GetScale()
+    {
+        return transform.localScale;
+    }
 
     private void Awake()
     {
@@ -97,6 +101,11 @@ public class PlayerMovement : MonoBehaviour
     {
         m_anim.SetBool("isPetting", false);
         GameManager.instance.ChangeCanMove(true);
+    }
+
+    private void ChangeToManuela()
+    {
+        m_anim.SetTrigger("ChangeToManuela");
     }
 }
 

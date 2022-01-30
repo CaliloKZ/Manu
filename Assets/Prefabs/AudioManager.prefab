@@ -206,6 +206,34 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
     description: 
+  - name: OpenDrawer
+    clip: {fileID: 8300000, guid: b9f26a5db7b29d241a24cce42d7d55e3, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: SearchBooks
+    clip: {fileID: 8300000, guid: 0917b618e01c0274792f4d9cb129a50d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: OpenDoor
+    clip: {fileID: 8300000, guid: 29ae03b663fc5924fa8999b2730d0a75, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: OldDoor
+    clip: {fileID: 8300000, guid: 5267fac668e897249a3c517f4c6d1999, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
   outputs:
   - {fileID: 7756082823134086279, guid: cff41c706fe4ad9478d2f239d119a8b1, type: 2}
   - {fileID: -7077578667912498453, guid: cff41c706fe4ad9478d2f239d119a8b1, type: 2}

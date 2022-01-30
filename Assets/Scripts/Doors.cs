@@ -28,6 +28,7 @@ public class Doors : MonoBehaviour
 
     private Color m_fontColor;
     private List<string> m_voices = new List<string>();
+    private string m_audioToPlay;
 
     private void Start()
     {
@@ -35,11 +36,13 @@ public class Doors : MonoBehaviour
         {
             m_fontColor = UIManager.instance.GetColor(1);
             m_voices = UIManager.instance.GetVoice(1);
+            m_audioToPlay = "OldDoor";
         }
         else
         {
             m_fontColor = UIManager.instance.GetColor(0);
             m_voices = UIManager.instance.GetVoice(0);
+            m_audioToPlay = "OpenDoor";
         }     
     }
 
@@ -49,6 +52,7 @@ public class Doors : MonoBehaviour
         {
             if (!m_isLocked)
             {
+                SoundManager.instance.PlaySFX(m_audioToPlay);
                 m_roomManager.LoadRoom(m_roomToLoad, m_currentRoom, m_startPosIndex, m_hasDialogue);
                 m_hasDialogue = false;
             }

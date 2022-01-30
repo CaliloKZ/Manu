@@ -3343,8 +3343,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_roomManager: {fileID: 860500250}
-  m_firstPartDialogue: []
-  m_secondPartDialogue: []
+  m_firstPartDialogue:
+  - {fileID: 11400000, guid: d0b6435f7d8d72d4c9dab47fa5d6ce6c, type: 2}
+  - {fileID: 11400000, guid: 7d8b2964e8f41a1448970ec5fb4c3cf4, type: 2}
+  - {fileID: 11400000, guid: f6223c1d5529630449ab9cc4978da4fe, type: 2}
+  - {fileID: 11400000, guid: a973a6fc5ebc15d43870e19e9a0bfe82, type: 2}
+  - {fileID: 11400000, guid: 598de9e753e287b4c91b890f06796c5c, type: 2}
+  - {fileID: 11400000, guid: f20f54b93e25fc842ad4b5135e09f4d1, type: 2}
+  - {fileID: 11400000, guid: 0ef0f29e485121041a576f8421629e92, type: 2}
+  - {fileID: 11400000, guid: d72550b56e6f51041bfb9d23dd0fab4b, type: 2}
+  - {fileID: 11400000, guid: 08bf6764e541f3d4db83620e8aefffc6, type: 2}
+  - {fileID: 11400000, guid: 73c5b164b6293c64491a4c85b9e18a31, type: 2}
+  - {fileID: 11400000, guid: 0edacf7e5999e7b4fb8d4462c28a090a, type: 2}
+  - {fileID: 11400000, guid: 5022a6b6bb473314c821c4cdca6f9700, type: 2}
+  - {fileID: 11400000, guid: 808404c2e299ee4469682874bf1561d1, type: 2}
+  - {fileID: 11400000, guid: cb8c5a2b42d8bb54c88f3cf6d576c78d, type: 2}
+  - {fileID: 11400000, guid: e013d52d1ea0a484c86c6e759a9040ce, type: 2}
+  - {fileID: 11400000, guid: 1506592ec9def1b4295bd4b360df9850, type: 2}
+  - {fileID: 11400000, guid: 8397f05d3bbac3149b5386b21786a2aa, type: 2}
+  - {fileID: 11400000, guid: 0aeace39a1ae85f4c9ee98e11f25667b, type: 2}
+  - {fileID: 11400000, guid: 4b7c4cf5a95b6a746ac98c0910279484, type: 2}
+  - {fileID: 11400000, guid: 57bd8b1490b13cc4db4cc4b7b5d2e62f, type: 2}
+  - {fileID: 11400000, guid: c48dc04b1eb474d4a89dadb5facc5e6e, type: 2}
   m_roomToLoad: {fileID: 581213325}
   m_currentRoom: {fileID: 2129349134}
   m_pressEObj: {fileID: 2036644958}
@@ -12684,7 +12704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5036917560150977028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14099,7 +14119,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5036917561016695242}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1720598947}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: PauseGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5036917561016695247
 GameObject:
   m_ObjectHideFlags: 0
