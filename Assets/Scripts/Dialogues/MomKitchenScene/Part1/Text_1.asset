@@ -15,3 +15,7 @@ MonoBehaviour:
   text: "Oi manu, tava falando com o seu pai ainda agora, ele disse que volta ainda
     hoje da viagem\r"
   fontColor: {r: 0.30980393, g: 0.20000002, b: 0.32156864, a: 1}
+  voices:
+  - Mom0
+  - Mom1
+  - Mom2

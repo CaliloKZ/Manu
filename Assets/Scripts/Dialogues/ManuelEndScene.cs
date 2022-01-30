@@ -48,6 +48,8 @@ public class ManuelEndScene : MonoBehaviour
 
     public void ClosedPhoto()
     {
+        SoundManager.instance.StopMusic();
+        SoundManager.instance.PlayMusic("FinalCutscene");
         m_endDialogue -= FindPhoto;
         m_endDialogue += EndScene;
         m_dialogueManager.dialogueEnded.AddListener(m_endDialogue);

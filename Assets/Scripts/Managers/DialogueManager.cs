@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance;
     private GameManager m_gameManager;
+    private SoundManager m_soundManager;
 
     [SerializeField]
     private TextMeshProUGUI m_dialogueText;
@@ -28,6 +30,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     private GameObject m_nextIcon;
 
+    private int m_random;
+    private string m_audioToPlay;
+
     private void Awake()
     {
         if(instance == null)
@@ -44,6 +49,7 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {       
         m_gameManager = GameManager.instance;
+        m_soundManager = SoundManager.instance;
     }
 
     private void Update()
@@ -77,14 +83,16 @@ public class DialogueManager : MonoBehaviour
         }
         Timing.RunCoroutine(Dialogue(m_dialogueTexts));
     }
-    public IEnumerator<float> Dialogue(string text, Color fontColor)
+    public IEnumerator<float> Dialogue(string text, Color fontColor, string audioName, string audioNameTwo, string audioNameThree)
     {
         m_nextIcon.SetActive(false);
         DialogueState(true);
         m_maxDialogues = 1;
         Timing.KillCoroutines("textRoutine");
         m_dialogueFontMat.SetColor("_OutlineColor", fontColor);
+        Timing.RunCoroutine(DialogueSoundRoutine(audioName, audioNameTwo, audioNameThree).CancelWith(gameObject), "voice");
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(TextAnim(text, 0.01f).CancelWith(gameObject), "textRoutine"));
+        Timing.KillCoroutines("voice");
         m_nextIcon.SetActive(true);
     }
 
@@ -94,7 +102,33 @@ public class DialogueManager : MonoBehaviour
         m_maxDialogues = m_dialogueTexts.Count;
         Timing.KillCoroutines("textRoutine");
         m_dialogueFontMat.SetColor("_OutlineColor", m_dialogueTexts[m_dialogueIndex].fontColor);
+        Timing.RunCoroutine(DialogueSoundRoutine(dialogueTexts[m_dialogueIndex].voices[0], dialogueTexts[m_dialogueIndex].voices[1], dialogueTexts[m_dialogueIndex].voices[2]).CancelWith(gameObject), "voice");
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(TextAnim(dialogueTexts[m_dialogueIndex].text, 0.01f).CancelWith(gameObject), "textRoutine"));
+        Timing.KillCoroutines("voice");
+    }
+
+    IEnumerator<float> DialogueSoundRoutine(string audioName, string audioNameTwo, string audioNameThree)
+    {
+        if (!string.IsNullOrWhiteSpace(m_audioToPlay))
+        {
+            m_soundManager.StopSFX(m_audioToPlay);
+        }
+        m_random = UnityEngine.Random.Range(0, 3);
+        if(m_random == 0)
+        {
+            m_audioToPlay = audioName;
+        }
+        else if(m_random == 1)
+        {
+            m_audioToPlay = audioNameTwo;
+        }
+        else if (m_random == 2)
+        {
+            m_audioToPlay = audioNameThree;
+        }
+        m_soundManager.PlaySFX(m_audioToPlay);
+         yield return Timing.WaitForSeconds(0.15f);
+        Timing.RunCoroutine(DialogueSoundRoutine(audioName, audioNameTwo, audioNameThree).CancelWith(gameObject), "voice");
     }
 
     public void StopDialogue()

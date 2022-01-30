@@ -6,6 +6,7 @@ using MEC;
 
 public class GiveItem : MonoBehaviour
 {
+    private UIManager m_uiManager;
     private SpriteRenderer m_sr;
     private DialogueManager m_dialogueManager;
     [TextArea][SerializeField]
@@ -36,13 +37,14 @@ public class GiveItem : MonoBehaviour
     private void Start()
     {
         m_dialogueManager = DialogueManager.instance;
+        m_uiManager = UIManager.instance;
     }
     private void Update()
     {
         if (m_isIn && Input.GetKeyDown(KeyCode.E))
         {
             if (m_gotItem)
-                Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_gotItemDialogueText, UIManager.instance.GetManuelColor()).CancelWith(gameObject));
+                Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_gotItemDialogueText, m_uiManager.GetColor(1), m_uiManager.GetVoice(1)[0], m_uiManager.GetVoice(1)[1], m_uiManager.GetVoice(1)[2]).CancelWith(gameObject));
             else
                StartDialogue();
         }
@@ -55,7 +57,7 @@ public class GiveItem : MonoBehaviour
 
         m_endDialogueAction += GetItem;
         m_dialogueManager.dialogueEnded.AddListener(m_endDialogueAction);
-        Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_findItemDialogueText, UIManager.instance.GetManuelColor()).CancelWith(gameObject));
+        Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_findItemDialogueText, m_uiManager.GetColor(1), m_uiManager.GetVoice(1)[0], m_uiManager.GetVoice(1)[1], m_uiManager.GetVoice(1)[2]).CancelWith(gameObject));
     }
     void GetItem()
     {

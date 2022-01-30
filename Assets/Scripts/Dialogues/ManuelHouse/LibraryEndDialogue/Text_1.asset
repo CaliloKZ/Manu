@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: "Isso n\xE3o faz sentido... Como essa estante t\xE1 t\xE3o preservada??"
   fontColor: {r: 0.80784315, g: 0.5254902, b: 0.5254902, a: 1}
+  voices:
+  - Manuel0
+  - Manuel1
+  - Manuel2

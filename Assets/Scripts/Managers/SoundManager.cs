@@ -67,6 +67,14 @@ public class SoundManager : MonoBehaviour
         _currentMusic = s;
     }
 
+    public void StopMusic()
+    {
+        if (_currentMusic != null)
+        {
+            _currentMusic.source.Stop();
+        }
+    }
+
     public void PlaySFX(string name)
     {
         Sound s = Array.Find(sfx, sound => sound.name == name);

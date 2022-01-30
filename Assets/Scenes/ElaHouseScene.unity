@@ -251,7 +251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &50214732
 Transform:
   m_ObjectHideFlags: 0
@@ -291,6 +291,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: feae910f800841145a1ab560934eb482, type: 2}
   - {fileID: 11400000, guid: 5a157982b10b5ef4fae0d4e5ee0300ec, type: 2}
   m_isFirstFloor: 0
+  m_isStreet: 0
+  m_streetNPCs: []
 --- !u!1 &60793423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,6 +1566,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8ba6eff983eebb04c95d548b3a1f0f3b, type: 2}
   - {fileID: 11400000, guid: acdae948a8cbada48a6f613bd63b29c0, type: 2}
   m_isFirstFloor: 1
+  m_isStreet: 0
+  m_streetNPCs: []
 --- !u!1 &217634331
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,7 +2301,7 @@ Transform:
   m_Children:
   - {fileID: 1798150081}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &320202448
 MonoBehaviour:
@@ -2730,6 +2734,8 @@ MonoBehaviour:
   - {fileID: 404079939}
   m_dialogueTexts: []
   m_isFirstFloor: 0
+  m_isStreet: 0
+  m_streetNPCs: []
 --- !u!1 &392426229
 GameObject:
   m_ObjectHideFlags: 0
@@ -5918,8 +5924,8 @@ MonoBehaviour:
   m_chargeSpeed: 3.5
   m_isLeft: 0
   m_pressE: {fileID: 921009977}
-  m_bookshelfSlider: {fileID: 0}
-  m_EText: {fileID: 0}
+  m_bookshelfSlider: {fileID: 4352505540615107797}
+  m_EText: {fileID: 4352505540974647684}
 --- !u!61 &661164232
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10451,6 +10457,8 @@ MonoBehaviour:
   - {fileID: 1437998476}
   m_dialogueTexts: []
   m_isFirstFloor: 0
+  m_isStreet: 0
+  m_streetNPCs: []
 --- !u!1 &1092930365
 GameObject:
   m_ObjectHideFlags: 0
@@ -13467,7 +13475,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1443531210
 GameObject:
@@ -13865,9 +13873,9 @@ MonoBehaviour:
   m_currentPlayerSearchPos: {fileID: 922433424}
   m_secondPlayerHidePos: {fileID: 69084970}
   m_secondPlayerSearchPos: {fileID: 1258155963}
-  m_HideText: {fileID: 0}
-  m_SearchText: {fileID: 0}
-  m_PressEText: {fileID: 0}
+  m_HideText: {fileID: 4352505542354923203}
+  m_SearchText: {fileID: 4352505541095402076}
+  m_PressEText: {fileID: 4352505540974647684}
   m_moveCooldown: 0.01
   m_rightArrow: {fileID: 1622180491}
   m_leftArrow: {fileID: 1966511942}
@@ -15354,6 +15362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c1cc3cca0e7e6408fb92389ab6308f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_isManuel: 0
 --- !u!1 &1640000525
 GameObject:
   m_ObjectHideFlags: 0
@@ -15821,6 +15830,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672875853}
   m_CullTransparentMesh: 1
+--- !u!1001 &1679212103
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6673886691385486856, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673886691385486856, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673886691385486856, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673886691385486856, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673886691385486856, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673886691385486856, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673886691385486856, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673886691385486856, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673886691385486856, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673886691385486856, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673886691385486856, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673886691385486862, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 63bd2a6755f14884294aedeb807aa54d, type: 3}
 --- !u!1 &1681271590
 GameObject:
   m_ObjectHideFlags: 0
@@ -16380,6 +16446,8 @@ MonoBehaviour:
   m_player: {fileID: 2009601256}
   m_playerCam: {fileID: 320202445}
   m_momCouch: {fileID: 1114307967}
+  m_alleyGuy: {fileID: 0}
+  m_mel: {fileID: 0}
   m_mainCamConfiner: {fileID: 320202448}
   m_bookshelfMinigame: {fileID: 433107009}
   m_bookshelfNormal: {fileID: 100156487}
@@ -16396,8 +16464,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 390757335ee4df34e93112a789cddeb0, type: 2}
   m_jigsawGameCanvas: {fileID: 841371533}
   m_inventory: {fileID: 0}
-  m_finalManuelaPos: {fileID: 4352505542359475946}
+  m_finalManuelaPos: {fileID: 1987096973}
   m_firstRoomToLoad: {fileID: 382250679}
+  m_secondStreet: {fileID: 0}
+  m_finishStealGameDialogue: 
+  m_bgAudioToPlay: ManuelaHouse
 --- !u!1 &1768500962
 GameObject:
   m_ObjectHideFlags: 0
@@ -17828,7 +17899,7 @@ MonoBehaviour:
   m_roomManager: {fileID: 1629485462}
   m_pressEObj: {fileID: 1539408260}
   m_startPosIndex: 0
-  m_isLocked: 0
+  m_isLocked: 1
   m_hasDialogue: 1
   m_doorDialogueText: "\xC9 a biblioteca, a sempre est\xE1 trancada, nunca consegui
     entrar a\xED.\r\n"
@@ -18475,6 +18546,8 @@ MonoBehaviour:
   - {fileID: 5495495}
   m_dialogueTexts: []
   m_isFirstFloor: 0
+  m_isStreet: 0
+  m_streetNPCs: []
 --- !u!1 &1966511942
 GameObject:
   m_ObjectHideFlags: 0
@@ -18987,54 +19060,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_kitchenDialogue: {fileID: 1655127130}
---- !u!1 &2013234204
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2013234206}
-  - component: {fileID: 2013234205}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!114 &2013234205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2013234204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 700e741fc7a3aaa419b41de7ec1f7058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  music: []
-  sfx: []
-  outputs:
-  - {fileID: 7756082823134086279, guid: cff41c706fe4ad9478d2f239d119a8b1, type: 2}
-  - {fileID: -7077578667912498453, guid: cff41c706fe4ad9478d2f239d119a8b1, type: 2}
---- !u!4 &2013234206
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2013234204}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2024886008
 GameObject:
   m_ObjectHideFlags: 0
@@ -20254,8 +20279,8 @@ MonoBehaviour:
   m_chargeSpeed: 3.5
   m_isLeft: 1
   m_pressE: {fileID: 284905017}
-  m_bookshelfSlider: {fileID: 0}
-  m_EText: {fileID: 0}
+  m_bookshelfSlider: {fileID: 4352505541324630883}
+  m_EText: {fileID: 4352505540974647684}
 --- !u!61 &2146929739
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21061,7 +21086,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 23d40b43f2f17f64ebd190effcd56b35, type: 2}
-  m_sharedMaterial: {fileID: -7464076082877737444, guid: 23d40b43f2f17f64ebd190effcd56b35, type: 2}
+  m_sharedMaterial: {fileID: 1455990648288061410, guid: 23d40b43f2f17f64ebd190effcd56b35, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -22456,7 +22481,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2744.7742, y: 1556.1884}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4352505541293003750
 MonoBehaviour:
@@ -22470,7 +22495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 077a798224487284b920ded7454f37e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gameManager: {fileID: 0}
+  m_gameManager: {fileID: 1720598947}
   m_inventory: {fileID: 4352505542359475950}
   m_endScene: {fileID: 0}
   m_newItemText: {fileID: 4352505542485485605}
@@ -23007,7 +23032,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: alpha v0.08
+  m_text: beta v0.1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -23101,6 +23126,26 @@ MonoBehaviour:
   m_momFontColor: {r: 0.30980393, g: 0.20000002, b: 0.32156864, a: 1}
   m_vendorFontColor: {r: 0, g: 0, b: 0, a: 0}
   m_alleyManFontColor: {r: 0, g: 0, b: 0, a: 0}
+  m_manuelaVoices:
+  - Manuela0
+  - Manuela1
+  - Manuela2
+  m_manuelVoices:
+  - Manuel0
+  - Manuel1
+  - Manuel2
+  m_momVoices:
+  - Mom0
+  - Mom1
+  - Mom2
+  m_breadVoices:
+  - Bread0
+  - Bread1
+  - Bread2
+  m_alleyVoices:
+  - Alley0
+  - Alley1
+  - Alley2
 --- !u!223 &4352505542214554458
 Canvas:
   m_ObjectHideFlags: 0
@@ -23286,8 +23331,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 236}
-  m_SizeDelta: {x: 838.7666, y: 101.8819}
+  m_AnchoredPosition: {x: 0, y: 178}
+  m_SizeDelta: {x: 551.1555, y: 89.0992}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4352505542307056975
 MonoBehaviour:
@@ -23336,8 +23381,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.28
-  m_fontSizeBase: 46.28
+  m_fontSize: 36.32
+  m_fontSizeBase: 36.32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -23699,6 +23744,7 @@ MonoBehaviour:
   - {fileID: 4352505540894871471}
   - {fileID: 4352505541972473341}
   - {fileID: 4352505541066312562}
+  m_firstSlotText: {fileID: 0}
   m_secondSlotText: {fileID: 4352505540606784564}
 --- !u!1 &4352505542359475957
 GameObject:
@@ -23975,8 +24021,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -247.41}
-  m_SizeDelta: {x: 838.7666, y: 71.96}
+  m_AnchoredPosition: {x: 0, y: -164}
+  m_SizeDelta: {x: 505.99, y: 71.96}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4352505542485485605
 MonoBehaviour:
@@ -23998,7 +24044,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Foto Desconhecida
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 454a18f5de47c6e43b1678877a212540, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 456210da6b038d44389fd63059f7e490, type: 2}
@@ -24025,8 +24071,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.28
-  m_fontSizeBase: 46.28
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: "Tem uns peda\xE7os de papel rasgado aqui, ser\xE1 se \xE9 isso?\r"
   fontColor: {r: 0, g: 0.69803923, b: 0.050980393, a: 1}
+  voices:
+  - Manuela0
+  - Manuela1
+  - Manuela2

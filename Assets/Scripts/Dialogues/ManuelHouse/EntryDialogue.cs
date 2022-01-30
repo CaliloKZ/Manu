@@ -12,12 +12,13 @@ public class EntryDialogue : MonoBehaviour
     private void Start()
     {
         m_dialogueManager = DialogueManager.instance;
-        StartDialogue();
+        m_dialogueManager.DialogueState(true);
+        Timing.RunCoroutine(StartDialogue().CancelWith(gameObject));
     }
 
-    void StartDialogue()
+    IEnumerator<float> StartDialogue()
     {
-        m_dialogueManager.DialogueState(true);
+        yield return Timing.WaitForSeconds(1.5f);     
         Timing.RunCoroutine(m_dialogueManager.Dialogue(m_dialogues).CancelWith(gameObject));
     }
 }

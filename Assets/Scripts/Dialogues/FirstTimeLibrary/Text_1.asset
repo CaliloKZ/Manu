@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: "Agora, vamos procurar o que eles t\xEAm escondido de mim\r"
   fontColor: {r: 0, g: 0.69803923, b: 0.050980393, a: 1}
+  voices:
+  - Manuela0
+  - Manuela1
+  - Manuela2

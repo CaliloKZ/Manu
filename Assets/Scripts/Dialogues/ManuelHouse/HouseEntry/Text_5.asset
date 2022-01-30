@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: Bom, deixa eu pegar logo esse livro pra eu sair daqui
   fontColor: {r: 0.80784315, g: 0.5254902, b: 0.5254902, a: 1}
+  voices:
+  - Manuel0
+  - Manuel1
+  - Manuel2

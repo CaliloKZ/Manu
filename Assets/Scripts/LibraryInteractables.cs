@@ -6,6 +6,7 @@ using MEC;
 
 public class LibraryInteractables : MonoBehaviour
 {
+    private UIManager m_uiManager;
     private GameManager m_gameManager;
     [TextArea]
     [SerializeField]
@@ -38,6 +39,7 @@ public class LibraryInteractables : MonoBehaviour
     private void Start()
     {
         m_gameManager = GameManager.instance;
+        m_uiManager = UIManager.instance;
     }
     private void Update()
     {
@@ -45,7 +47,7 @@ public class LibraryInteractables : MonoBehaviour
         {
             if (m_gotItem)
             {
-                Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_noItemDialogueText, UIManager.instance.GetManuelaColor()));
+                Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_noItemDialogueText, UIManager.instance.GetColor(0), m_uiManager.GetVoice(0)[0], m_uiManager.GetVoice(0)[1], m_uiManager.GetVoice(0)[2]).CancelWith(gameObject));
             }
             else
             {

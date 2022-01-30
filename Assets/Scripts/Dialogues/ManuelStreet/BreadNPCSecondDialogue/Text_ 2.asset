@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dece28a61a313b4fa0cf557da2df6a1, type: 3}
+  m_Name: Text_ 2
+  m_EditorClassIdentifier: 
+  text: "Infelizmente n\xE3o \xE9 o suficiente... t\xE1 muito dif\xEDcil conseguir
+    p\xE3o por esses lugares..."
+  fontColor: {r: 0.3647059, g: 0.28235295, b: 0.17254902, a: 1}
+  voices:
+  - Bread0
+  - Bread1
+  - Bread2

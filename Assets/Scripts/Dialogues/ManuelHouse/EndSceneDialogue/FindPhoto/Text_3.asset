@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: "Ent\xE3o... fui eu quem..."
   fontColor: {r: 0.80784315, g: 0.5254902, b: 0.5254902, a: 1}
+  voices:
+  - Manuel0
+  - Manuel1
+  - Manuel2

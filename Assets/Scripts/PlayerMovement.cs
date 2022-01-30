@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [Range(0, .3f)] [SerializeField]
     private float m_MovementSmoothing = .05f;	// How much to smooth out the movement
 
+
     private void Awake()
     {
         m_rb = GetComponent<Rigidbody2D>();
@@ -60,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
        
     }
 
+    
     public void StopMove()
     {
         m_rb.velocity = Vector2.zero;
@@ -82,6 +84,19 @@ public class PlayerMovement : MonoBehaviour
         GameManager.instance.ChangeCanMove(false);
         StopMove();
         m_rb.position = GameManager.instance.GetFinalManuelaPos().position;
+    }
+
+    public void PetTheDog()
+    {
+        GameManager.instance.ChangeCanMove(false);
+        m_anim.SetBool("isPetting", true);
+        StopMove();
+    }
+
+    public void StopPetting()
+    {
+        m_anim.SetBool("isPetting", false);
+        GameManager.instance.ChangeCanMove(true);
     }
 }
 

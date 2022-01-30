@@ -9,6 +9,7 @@ public class KeyGameManager : MonoBehaviour
 {
     private GameManager m_gameManager;
     private DialogueManager m_dialogueManager;
+    private UIManager m_uiManager;
     private bool m_leftSideFinished = false,
                  m_rightSideFinished = false;
 
@@ -43,6 +44,7 @@ public class KeyGameManager : MonoBehaviour
         m_endFinalDialogue += End;
         m_gameManager = GameManager.instance;
         m_dialogueManager = DialogueManager.instance;
+        m_uiManager = UIManager.instance;
     }
     public void StartDialogue()
     {
@@ -76,7 +78,7 @@ public class KeyGameManager : MonoBehaviour
     IEnumerator<float> SecondPartDialogue()
     {
         m_dialogueManager.dialogueEnded.AddListener(m_endSecondDialogue);
-        yield return Timing.WaitUntilDone(Timing.RunCoroutine(m_dialogueManager.Dialogue(m_secondPartDialogue[0], UIManager.instance.GetManuelaColor()).CancelWith(gameObject)));
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(m_dialogueManager.Dialogue(m_secondPartDialogue[0], m_uiManager.GetColor(0), m_uiManager.GetVoice(0)[0], m_uiManager.GetVoice(0)[1], m_uiManager.GetVoice(0)[2]).CancelWith(gameObject)));
     }
 
     void SecondPart()
@@ -113,6 +115,6 @@ public class KeyGameManager : MonoBehaviour
     IEnumerator<float> EndGameDialogue()
     {
         m_dialogueManager.dialogueEnded.AddListener(m_endFinalDialogue);
-        yield return Timing.WaitUntilDone(Timing.RunCoroutine(m_dialogueManager.Dialogue(m_endGameDialogue[0], UIManager.instance.GetManuelaColor()).CancelWith(gameObject)));      
+        yield return Timing.WaitUntilDone(Timing.RunCoroutine(m_dialogueManager.Dialogue(m_endGameDialogue[0], m_uiManager.GetColor(0), m_uiManager.GetVoice(0)[0], m_uiManager.GetVoice(0)[1], m_uiManager.GetVoice(0)[2]).CancelWith(gameObject)));      
     }
 }

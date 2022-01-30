@@ -28,30 +28,57 @@ public class UIManager : MonoBehaviour
                   m_momFontColor,
                   m_vendorFontColor,
                   m_alleyManFontColor;
-    #region getFontColors
-    public Color GetManuelaColor()
+
+    [Header("Dialogue Voices")]
+    [SerializeField]
+    private List<string> m_manuelaVoices = new List<string>();
+    [SerializeField]
+    private List<string> m_manuelVoices = new List<string>();
+    [SerializeField]
+    private List<string> m_momVoices = new List<string>();
+    [SerializeField]
+    private List<string> m_breadVoices = new List<string>();
+    [SerializeField]
+    private List<string> m_alleyVoices = new List<string>();
+
+    #region getColorsAndVoices
+
+    public Color GetColor(int character)// 0 = manuela, 1 = manuel, 2 = mom, 3 = bread, 4 = alley;
     {
-        return m_manuelaFontColor;
+        switch(character)
+        {
+            case 0:
+                return m_manuelaFontColor;
+            case 1:
+                return m_manuelFontColor;
+            case 2:
+                return m_momFontColor;
+            case 3:
+                return m_vendorFontColor;
+            case 4:
+                return m_alleyManFontColor;
+            default:
+                return Color.white;
+        }
     }
 
-    public Color GetManuelColor()
+    public List<string> GetVoice(int character)// 0 = manuela, 1 = manuel, 2 = mom, 3 = bread, 4 = alley;
     {
-        return m_manuelFontColor;
-    }
-
-    public Color GetVendorColor()
-    {
-        return m_vendorFontColor;
-    }
-
-    public Color GetAlleyManColor()
-    {
-        return m_alleyManFontColor;
-    }
-
-    public Color GetMomColor()
-    {
-        return m_momFontColor;
+        switch (character)
+        {
+            case 0:
+                return m_manuelaVoices;
+            case 1:
+                return m_manuelVoices;
+            case 2:
+                return m_momVoices;
+            case 3:
+                return m_breadVoices;
+            case 4:
+                return m_alleyVoices;
+            default:
+                return null;
+        }
     }
     #endregion
 
@@ -66,7 +93,7 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("Another instance of UIManager was found. Destroying gameObject");
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     private void Start()

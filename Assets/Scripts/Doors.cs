@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using MEC;
 
 public class Doors : MonoBehaviour
@@ -26,13 +27,20 @@ public class Doors : MonoBehaviour
     private string m_doorDialogueText;
 
     private Color m_fontColor;
+    private List<string> m_voices = new List<string>();
 
     private void Start()
     {
         if (GameManager.instance.GetIsManuel())
-            m_fontColor = UIManager.instance.GetManuelColor();
+        {
+            m_fontColor = UIManager.instance.GetColor(1);
+            m_voices = UIManager.instance.GetVoice(1);
+        }
         else
-            m_fontColor = UIManager.instance.GetManuelaColor();
+        {
+            m_fontColor = UIManager.instance.GetColor(0);
+            m_voices = UIManager.instance.GetVoice(0);
+        }     
     }
 
     private void Update()
@@ -55,7 +63,7 @@ public class Doors : MonoBehaviour
                 }
                 else
                 {
-                    Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_doorDialogueText, m_fontColor));
+                    Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_doorDialogueText, m_fontColor, m_voices[0], m_voices[1], m_voices[2]));
                     GameManager.instance.FoundLockedLibrary();
                 }           
             }            

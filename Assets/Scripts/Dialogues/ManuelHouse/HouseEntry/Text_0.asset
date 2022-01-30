@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dece28a61a313b4fa0cf557da2df6a1, type: 3}
   m_Name: Text_0
   m_EditorClassIdentifier: 
-  text: "N\xE3o chega a ser uma brincadeira, mas realmente n\xE3o foi dif\xEDcil
-    entrar"
+  text: "Que estranho... n\xE3o foi nada dif\xEDcil entrar..."
   fontColor: {r: 0.80784315, g: 0.5254902, b: 0.5254902, a: 1}
+  voices:
+  - Manuel0
+  - Manuel1
+  - Manuel2

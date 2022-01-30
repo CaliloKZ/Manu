@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: "Por algum motivo, sinto que j\xE1 visitei esse lugar\u2026"
   fontColor: {r: 0.80784315, g: 0.5254902, b: 0.5254902, a: 1}
+  voices:
+  - Manuel0
+  - Manuel1
+  - Manuel2

@@ -8,4 +8,5 @@ public class DialogueText : ScriptableObject
     [TextArea]
     public string text;
     public Color fontColor;
+    public List<string> voices = new List<string>();
 }

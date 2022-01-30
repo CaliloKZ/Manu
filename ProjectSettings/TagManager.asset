@@ -6,6 +6,9 @@ TagManager:
   tags:
   - BookshelfMinigameBlock
   - KeyGamePlayer
+  - StealGameMarker
+  - StealGameLimit
+  - StealGameRightArea
   layers:
   - Default
   - TransparentFX

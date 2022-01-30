@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: "Parece que est\xE1 faltando partes, vou ver se acho mais\r"
   fontColor: {r: 0, g: 0.69803923, b: 0.050980393, a: 1}
+  voices:
+  - Manuela0
+  - Manuela1
+  - Manuela2

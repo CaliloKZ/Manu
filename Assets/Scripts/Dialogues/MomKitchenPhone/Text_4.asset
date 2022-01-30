@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: Ok, tchau
   fontColor: {r: 0.30980393, g: 0.20000002, b: 0.32156864, a: 0}
+  voices:
+  - Mom0
+  - Mom1
+  - Mom2

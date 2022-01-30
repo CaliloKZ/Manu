@@ -1,0 +1,211 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6673886691385486862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6673886691385486856}
+  - component: {fileID: 6673886691385486863}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &6673886691385486856
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673886691385486862}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6673886691385486863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673886691385486862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700e741fc7a3aaa419b41de7ec1f7058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  music:
+  - name: MenuPrincipal
+    clip: {fileID: 8300000, guid: 008f110a3a6ed4c44a8462f11e8f3a5a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    description: "m\xFAsica do menu principal"
+  - name: ManuelaHouse
+    clip: {fileID: 8300000, guid: ef07eceeb4b2d204ab4b9a6523661f0b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    description: "M\xFAsica casa da manuela"
+  - name: ManuelStreet
+    clip: {fileID: 8300000, guid: 55369b14d9c07ed43b0f0fbb257983a0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    description: "M\xFAsica na rua"
+  - name: ManuelHouse
+    clip: {fileID: 8300000, guid: 916ec5a47da0559429c46f55afa2eec0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    description: "M\xFAsica na casa com o manuel"
+  - name: FinalCutscene
+    clip: {fileID: 8300000, guid: eff6112c278fccd4da81229da643e845, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    description: "M\xFAsica que toca na cutscene final e nos cr\xE9ditos."
+  sfx:
+  - name: Manuela0
+    clip: {fileID: 8300000, guid: 68c510f9712826a44acc46d4745e5a38, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Manuela1
+    clip: {fileID: 8300000, guid: c7237a663966a4d4aa69a25e42bc6bd6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Manuela2
+    clip: {fileID: 8300000, guid: 01b0cbdefef20f843874ffdc0819e665, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Manuel0
+    clip: {fileID: 8300000, guid: 68c510f9712826a44acc46d4745e5a38, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Manuel1
+    clip: {fileID: 8300000, guid: c7237a663966a4d4aa69a25e42bc6bd6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Manuel2
+    clip: {fileID: 8300000, guid: 01b0cbdefef20f843874ffdc0819e665, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Mom0
+    clip: {fileID: 8300000, guid: 870531649633bf948b0d59fa6b9957bb, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Mom1
+    clip: {fileID: 8300000, guid: 057771872ca3b284b8149bbe571f9df8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Mom2
+    clip: {fileID: 8300000, guid: 08228e4dfa473d24ea479c6ccdf3529e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Bread0
+    clip: {fileID: 8300000, guid: 70f2474a78ef17f4fb3a48717744a147, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Bread1
+    clip: {fileID: 8300000, guid: 6a4a1640679b34247ad3987485ae4f1f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Bread2
+    clip: {fileID: 8300000, guid: 0dd56940a0c01cb4fb315d3fc7a3ef29, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Alley0
+    clip: {fileID: 8300000, guid: 77f68f389f208e44c970c0d00e508166, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Alley1
+    clip: {fileID: 8300000, guid: 5b28f20a10f4bc84784657b5b26e593d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Alley2
+    clip: {fileID: 8300000, guid: f25ed36b51fc21d4693e5a60d2e3114e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Mel0
+    clip: {fileID: 8300000, guid: d7ebfcdfcb8be1445939e079a5c971c2, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Mel1
+    clip: {fileID: 8300000, guid: f906093ec8593dc4abe955ff461f602f, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  - name: Mel2
+    clip: {fileID: 8300000, guid: f906093ec8593dc4abe955ff461f602f, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+    description: 
+  outputs:
+  - {fileID: 7756082823134086279, guid: cff41c706fe4ad9478d2f239d119a8b1, type: 2}
+  - {fileID: -7077578667912498453, guid: cff41c706fe4ad9478d2f239d119a8b1, type: 2}

@@ -16,6 +16,17 @@ public class Room : MonoBehaviour
 
     [SerializeField]
     private bool m_isFirstFloor;
+    [SerializeField]
+    private bool m_isStreet;
+
+
+    [Header("If its street")][SerializeField]
+    private List<NPCInteraction> m_streetNPCs = new List<NPCInteraction>();
+
+    public bool GetStreet()
+    {
+        return m_isStreet;
+    }
 
     private void Start()
     {
@@ -48,6 +59,12 @@ public class Room : MonoBehaviour
         yield return Timing.WaitUntilDone(Timing.RunCoroutine(m_dialogueManager.Dialogue(m_dialogueTexts).CancelWith(gameObject)));
     }
 
-
+    public void MinigameOn()
+    {
+        foreach (NPCInteraction npc in m_streetNPCs)
+        {
+            npc.MinigameIsOn();
+        }
+    }
 
 }

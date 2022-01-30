@@ -8,10 +8,12 @@ using MEC;
 
 public class GameManager : MonoBehaviour
 {
+
     public static GameManager instance;
 
+    private UIManager m_uiManager;
     private DialogueManager m_dialogueManager;
-
+    private ConfigControl m_pause;
     public bool hasLibraryKey { get; private set; }
 
     public bool foundFirstPuzzlePieces { get; private set; } = false;
@@ -29,7 +31,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject m_player,
                        m_playerCam,
-                       m_momCouch;
+                       m_momCouch,
+                       m_alleyGuy,
+                       m_mel;
 
     [SerializeField]
     private CinemachineConfiner m_mainCamConfiner;
@@ -75,7 +79,19 @@ public class GameManager : MonoBehaviour
     private Transform m_finalManuelaPos;
 
     [SerializeField]
-    private GameObject m_firstRoomToLoad;
+    private GameObject m_firstRoomToLoad,
+                       m_secondStreet;
+
+    public bool stealMinigameOn { get; private set; } = false;
+    public bool finishedStealMinigame { get; private set; } = false;
+
+    public int stolenNPCSCount { get; private set; } = 0;
+
+    [TextArea][SerializeField]
+    private string m_finishStealGameDialogue;
+
+    [SerializeField]
+    private string m_bgAudioToPlay;
 
     public Transform GetFinalManuelaPos()
     {
@@ -107,8 +123,19 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (m_isManuel)
+        {
+            m_player.GetComponent<Animator>().SetTrigger("ChangeToManuel");
+        }
+        else
+        {
+            m_player.GetComponent<Animator>().SetTrigger("ChangeToManuela");
+        }
+        SoundManager.instance.PlayMusic(m_bgAudioToPlay);
         gotJigsaw = new UnityEvent();
         m_dialogueManager = DialogueManager.instance;
+        m_pause = ConfigControl.instance;
+        m_uiManager = UIManager.instance;
         m_firstRoomToLoad.SetActive(true);
         canMove = true;
     }
@@ -117,7 +144,7 @@ public class GameManager : MonoBehaviour
     {
         if(canPause && Input.GetKeyDown(KeyCode.Escape))
         {
-            //pausar
+            m_pause.PauseGame();
         }
     }
 
@@ -158,6 +185,10 @@ public class GameManager : MonoBehaviour
     {
         m_player.transform.position = newPos.position;
     }
+    public void SetMelPos(Transform newPos)
+    {
+        m_mel.transform.position = newPos.position;
+    }
 
     public void SetCameraConfiner(PolygonCollider2D confiner)
     {
@@ -166,7 +197,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        SceneManager.LoadScene("ElaHouseScene");
+        PlayerPrefs.SetString("LastScene", SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Intro");
     }
 
     public void FirstPuzzlePiecesFound()
@@ -206,7 +238,7 @@ public class GameManager : MonoBehaviour
     {
         m_photoDialogueEnded += EndPhotoDialogue;
         m_dialogueManager.dialogueEnded.AddListener(m_photoDialogueEnded);
-        Timing.RunCoroutine(m_dialogueManager.Dialogue(m_foundPhotoDialogue, UIManager.instance.GetManuelaColor()).CancelWith(gameObject));
+        Timing.RunCoroutine(m_dialogueManager.Dialogue(m_foundPhotoDialogue, m_uiManager.GetColor(0), m_uiManager.GetVoice(0)[0], m_uiManager.GetVoice(0)[1], m_uiManager.GetVoice(0)[2]).CancelWith(gameObject));
     }
 
     void EndPhotoDialogue()
@@ -235,14 +267,21 @@ public class GameManager : MonoBehaviour
         m_PuzzleDialogueEnded -= StartPuzzle;
         m_PuzzleDialogueEnded += EndManuelaScene;
         m_dialogueManager.dialogueEnded.AddListener(m_PuzzleDialogueEnded);
-        Timing.RunCoroutine(m_dialogueManager.Dialogue(m_finishedPuzzleDialogue, UIManager.instance.GetManuelaColor()));
+        Timing.RunCoroutine(m_dialogueManager.Dialogue(m_finishedPuzzleDialogue, m_uiManager.GetColor(0), m_uiManager.GetVoice(0)[0], m_uiManager.GetVoice(0)[1], m_uiManager.GetVoice(0)[2]));
     }
 
     public void EndManuelaScene()
     {
+        SoundManager.instance.StopMusic();
         m_dialogueManager.dialogueEnded.RemoveListener(m_PuzzleDialogueEnded);
         m_player.GetComponent<Animator>().SetTrigger("Cry");
-        Timing.RunCoroutine(UIManager.instance.FadeInWithDelay(3f, 7.5f).CancelWith(gameObject));
+        Timing.RunCoroutine(GoToManuelScene().CancelWith(gameObject));
+    }
+    IEnumerator<float> GoToManuelScene()
+    {
+        Timing.RunCoroutine(m_uiManager.FadeInWithDelay(3f, 7.5f).CancelWith(gameObject));
+        yield return Timing.WaitForSeconds(9f);
+        SceneManager.LoadSceneAsync("ElFirstScene");
     }
 
     public void FoundLockedLibrary()
@@ -254,11 +293,34 @@ public class GameManager : MonoBehaviour
     {
         hasLibraryKey = true;
         if (m_foundLibrary)
-            Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_gotOldKeyDialogueAfterLibrary, UIManager.instance.GetManuelColor()).CancelWith(gameObject));
+            Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_gotOldKeyDialogueAfterLibrary, m_uiManager.GetColor(1), m_uiManager.GetVoice(1)[0], m_uiManager.GetVoice(1)[1], m_uiManager.GetVoice(1)[2]).CancelWith(gameObject));
         else
-            Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_gotOldKeyDialogue, UIManager.instance.GetManuelColor()).CancelWith(gameObject));
+            Timing.RunCoroutine(DialogueManager.instance.Dialogue(m_gotOldKeyDialogue, m_uiManager.GetColor(1), m_uiManager.GetVoice(1)[0], m_uiManager.GetVoice(1)[1], m_uiManager.GetVoice(1)[2]).CancelWith(gameObject));
+    }
+ 
+
+    public void StartStealMinigame()
+    {
+        m_secondStreet.GetComponent<Room>().MinigameOn();
+        stealMinigameOn = true;
     }
 
+    public void NPCStolen()
+    {
+        stolenNPCSCount++;
+        if (stolenNPCSCount >= 6)
+        {
+            Timing.RunCoroutine(m_dialogueManager.Dialogue(m_finishStealGameDialogue, m_uiManager.GetColor(1), m_uiManager.GetVoice(1)[0], m_uiManager.GetVoice(1)[1], m_uiManager.GetVoice(1)[2]).CancelWith(gameObject));
+            stealMinigameOn = false;
+            finishedStealMinigame = true;
+        }
+        ChangeCanMove(true);
+    }
+
+    public void ActivateAlleyGuy()
+    {
+        m_alleyGuy.SetActive(true);
+    }
     public void GoToCredits()
     {
         SceneManager.LoadScene("Credits");

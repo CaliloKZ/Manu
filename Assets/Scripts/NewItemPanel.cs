@@ -36,6 +36,10 @@ public class NewItemPanel : MonoBehaviour
 
     public void NewItem(Item item)
     {
+        if(item.itemName == "Money")
+        {
+
+        }
         m_newItem = item;
         m_inventory.AddItem(m_newItem);
         m_newItemImage.sprite = item.itemSprite;
@@ -66,6 +70,9 @@ public class NewItemPanel : MonoBehaviour
                 break;
             case "ManuelPhoto":
                 m_endScene.ClosedPhoto();
+                break;
+            case "Money":
+                m_gameManager.NPCStolen();
                 break;
             default:
                 Debug.LogWarning("Error NewItemPanel.Onclose, var m_newItem.itemName = " + m_newItem.itemName);
